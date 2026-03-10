@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A/V + Motion — Evan Cuttic</title>
+  <meta name="description" content="A/V and motion direction by Evan Cuttic — Netflix, YouTube, HBO, and ABC.">
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='black'/%3E%3Ctext x='16' y='22' font-family='sans-serif' font-size='13' font-weight='900' fill='white' text-anchor='middle' letter-spacing='1'%3EEC%3C/text%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a href="../index.html" class="site-header-logo" aria-label="Evan Cuttic — Home">
+      <div class="logo-mark" aria-hidden="true">EC</div>
+      <span class="site-header-name">Evan Cuttic</span>
+    </a>
+    <nav class="site-header-nav" aria-label="Main navigation">
+      <a href="../work.html"    class="site-header-link">Portfolio</a>
+      <a href="../about.html"   class="site-header-link">About</a>
+    </nav>
+  </header>
+
+  <main class="main-content">
+    <div class="container">
+
+      <header class="project-header">
+        <a href="../categories/art-direction.html" class="project-back">
+          <span class="arrow" aria-hidden="true">←</span> Art + Motion Direction
+        </a>
+        <h1 class="project-title">A/V + Motion</h1>
+      </header>
+
+      <div class="project-body">
+
+        <div class="project-info">
+          <div class="project-description">
+            <p>From title sequences to trailers, launch spots to social content — A/V direction has been central to my creative marketing practice across Netflix, YouTube, HBO, and ABC.</p>
+            <p>Each project required a distinct visual and tonal language, calibrated to the story being told and the platform it lived on.</p>
+            <p>Browse by studio using the toggles below.</p>
+          </div>
+          <dl class="project-meta">
+            <div class="meta-row">
+              <dt class="meta-key">Role</dt>
+              <dd class="meta-value" id="avc-role">Director, Global Creative Marketing</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div class="project-images">
+
+          <div class="av-carousel">
+
+            <div class="kac-tabs" role="tablist" aria-label="Select studio">
+              <button class="kac-tab active" data-company="netflix" role="tab" aria-selected="true">Netflix</button>
+              <button class="kac-tab" data-company="youtube" role="tab" aria-selected="false">YouTube</button>
+              <button class="kac-tab" data-company="hbo" role="tab" aria-selected="false">HBO</button>
+              <button class="kac-tab" data-company="abc" role="tab" aria-selected="false">ABC</button>
+            </div>
+
+            <div class="av-stage">
+              <video class="av-video" controls playsinline hidden></video>
+              <div class="av-click-area" hidden></div>
+              <div class="kac-empty">No videos yet</div>
+            </div>
+
+            <div class="av-controls" hidden>
+              <div class="av-controls-top">
+                <button class="av-nav-btn av-nav-prev" aria-label="Previous video">←</button>
+                <div class="av-dot-track">
+                  <div class="av-dot-row" aria-hidden="true"></div>
+                </div>
+                <button class="av-nav-btn av-nav-next" aria-label="Next video">→</button>
+              </div>
+              <div class="av-label-pill">
+                <span class="av-dot-label" aria-live="polite"></span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="container">
+    <div class="site-footer">
+      <span class="footer-copy">© 2025 Evan Cuttic</span>
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="../work.html"    class="footer-link">Portfolio</a>
+        <a href="../about.html"   class="footer-link">About</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script>
+  (function () {
+
+    // ─── CONFIG ───────────────────────────────────────────────────
+    // Videos load automatically from manifest.json in each folder.
+    // Drop files into the folder, run "Update Images.command", refresh.
+    var BASE   = '../images/portfolio/art-direction/av-motion/';
+    var ROLES  = {
+      netflix: 'Director<br>Global Creative Marketing',
+      youtube: 'Creative Director<br>YouTube Premium',
+      hbo:     'Sr. Manager<br>Originals Marketing + Advertising',
+      abc:     'Creative Director'
+    };
+    // ─────────────────────────────────────────────────────────────
+
+    var VIDEOS  = { netflix: [], youtube: [], hbo: [], abc: [] };
+    var fetched = {};
+    var company = 'netflix';
+    var index   = 0;
+
+    var tabs       = document.querySelectorAll('.av-carousel .kac-tab');
+    var video      = document.querySelector('.av-video');
+    var empty      = document.querySelector('.av-carousel .kac-empty');
+    var clickArea  = document.querySelector('.av-click-area');
+    var controlsEl = document.querySelector('.av-controls');
+    var dotTrack   = document.querySelector('.av-dot-track');
+    var labelEl    = document.querySelector('.av-dot-label');
+    var prevBtn    = document.querySelector('.av-nav-prev');
+    var nextBtn    = document.querySelector('.av-nav-next');
+    var roleEl     = document.getElementById('avc-role');
+
+    if (!video) return;
+
+    function vids() { return VIDEOS[company]; }
+
+    function parseTitle(filename) {
+      var base  = filename.replace(/\.[^.]+$/, '');
+      var parts = base.split('-');
+      // Format: NN-Studio-SeriesTitle-SN-Type
+      if (parts.length < 4) return base.replace(/-/g, ' ');
+      var typePart   = parts[parts.length - 1];
+      var seasonPart = parts[parts.length - 2];
+      var titleParts = parts.slice(2, parts.length - 2);
+      // Join and split CamelCase (lowercase→uppercase boundary)
+      var raw = titleParts.join(' ').replace(/([a-z])([A-Z])/g, '$1 $2');
+      // Extract embedded prepositions/conjunctions (e.g. "Graceand" → "Grace and")
+      raw = raw.replace(/([A-Z][a-z]+)(and|or|in|to|of|at|by)(\s|$)/g, '$1 $2 ');
+      raw = raw.replace(/\s+/g, ' ').trim();
+      // S1 → Season 1, S7B → Season 7B
+      var season = seasonPart.replace(/^[Ss](\d+\w*)$/, 'Season $1');
+      return raw + ' ' + season + ' \u2013 ' + typePart;
+    }
+
+    function loadManifest(c) {
+      return fetch(BASE + c + '/manifest.json')
+        .then(function (r) { return r.ok ? r.json() : []; })
+        .then(function (files) {
+          VIDEOS[c] = files
+            .filter(function (f) { return /\.(mp4|mov|webm)$/i.test(f); })
+            .map(function (f) {
+              return { src: BASE + c + '/' + f, title: parseTitle(f) };
+            });
+          fetched[c] = true;
+        })
+        .catch(function () { fetched[c] = true; });
+    }
+
+    var audioUnlocked = false;
+    if (clickArea) {
+      clickArea.addEventListener('click', function () {
+        if (!audioUnlocked) {
+          video.muted = false;
+          video.volume = 1;
+          audioUnlocked = true;
+        }
+        if (video.paused) video.play();
+        else video.pause();
+      });
+    }
+
+    video.addEventListener('ended', function () {
+      if (index < vids().length - 1) { index++; render(); video.play(); }
+    });
+
+    video.addEventListener('timeupdate', function () {
+      if (!video.duration) return;
+      var pct = (video.currentTime / video.duration * 100).toFixed(2) + '%';
+      var activeDot = dotTrack ? dotTrack.querySelector('.av-dot.is-active') : null;
+      if (activeDot) activeDot.style.setProperty('--progress', pct);
+    });
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', function () {
+        if (index > 0) { index--; render(); }
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', function () {
+        if (index < vids().length - 1) { index++; render(); }
+      });
+    }
+
+    function setVideo(src) {
+      video.pause();
+      video.src = src;
+      video.load();
+    }
+
+    function renderDotTrack() {
+      if (!dotTrack) return;
+      var dotRow = dotTrack.querySelector('.av-dot-row');
+      if (!dotRow) return;
+
+      var list = vids();
+      dotRow.innerHTML = '';
+
+      list.forEach(function (item, i) {
+        var dot = document.createElement('span');
+        dot.className = 'av-dot' +
+          (i < index   ? ' is-past'   : '') +
+          (i === index ? ' is-active' : '');
+        dot.addEventListener('click', function () {
+          if (i !== index) { index = i; render(); }
+        });
+        dotRow.appendChild(dot);
+      });
+
+      if (labelEl && list[index]) {
+        labelEl.textContent = list[index].title;
+        labelEl.style.fontSize = '';
+        requestAnimationFrame(function () {
+          var labelPill = labelEl.parentElement;
+          var availW = labelPill ? labelPill.offsetWidth - 28 : 0;
+          var labelW = labelEl.scrollWidth;
+          if (availW > 0 && labelW > availW) {
+            var base = parseFloat(getComputedStyle(labelEl).fontSize);
+            labelEl.style.fontSize = Math.floor(base * availW / labelW) + 'px';
+          }
+        });
+      }
+    }
+
+    function render() {
+      var list = vids();
+      var has  = list.length > 0;
+
+      video.hidden      = !has;
+      empty.hidden      =  has;
+      controlsEl.hidden = !has;
+      if (clickArea) clickArea.hidden = !has;
+
+      if (roleEl) { roleEl.innerHTML = ROLES[company]; }
+
+      if (has) {
+        setVideo(list[index].src);
+        if (prevBtn) prevBtn.disabled = index === 0;
+        if (nextBtn) nextBtn.disabled = index === list.length - 1;
+        renderDotTrack();
+      }
+    }
+
+    function switchTo(c) {
+      company = c;
+      index   = 0;
+      if (fetched[c]) { render(); return; }
+      loadManifest(c).then(render);
+    }
+
+    tabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        tabs.forEach(function (t) {
+          t.classList.remove('active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+        switchTo(tab.dataset.company);
+      });
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft'  && index > 0)               { index--; render(); }
+      if (e.key === 'ArrowRight' && index < vids().length - 1) { index++; render(); }
+    });
+
+    // Initial load
+    loadManifest('netflix').then(render);
+
+  }());
+  </script>
+
+</body>
+</html>

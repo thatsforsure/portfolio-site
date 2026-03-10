@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portraits of Comedy — Evan Cuttic</title>
+  <meta name="description" content="Netflix is a Joke Fest 2024 Portraits of Comedy talent campaign by Evan Cuttic — Clio Award winner.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='black'/%3E%3Ctext x='16' y='22' font-family='sans-serif' font-size='13' font-weight='900' fill='white' text-anchor='middle' letter-spacing='1'%3EEC%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .poc-carousel .av-dot.is-active { width: 6px; background: var(--gray-700); cursor: default; }
+    .poc-carousel .av-dot.is-active::after { display: none; }
+  </style>
+</head>
+<body>
+
+  <!-- SVG filter defs: colorize black Clio statue silhouettes to exact hex values -->
+  <!-- feColorMatrix maps black (0,0,0)→target hex, white (1,1,1)→white -->
+  <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute;overflow:hidden">
+    <defs>
+      <filter id="clio-silver" color-interpolation-filters="sRGB" x="0" y="0" width="1" height="1">
+        <feColorMatrix type="matrix" values="0.1046 0.1046 0.1046 0 0.6863
+                                             0.1346 0.1346 0.1346 0 0.5961
+                                             0.1268 0.1268 0.1268 0 0.6196
+                                             0      0      0      1 0"/>
+      </filter>
+      <filter id="clio-bronze" color-interpolation-filters="sRGB" x="0" y="0" width="1" height="1">
+        <feColorMatrix type="matrix" values="0.0719 0.0719 0.0719 0 0.7843
+                                             0.1529 0.1529 0.1529 0 0.5412
+                                             0.2510 0.2510 0.2510 0 0.2471
+                                             0      0      0      1 0"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a href="../index.html" class="site-header-logo" aria-label="Evan Cuttic — Home">
+      <div class="logo-mark" aria-hidden="true">EC</div>
+      <span class="site-header-name">Evan Cuttic</span>
+    </a>
+    <nav class="site-header-nav" aria-label="Main navigation">
+      <a href="../work.html"    class="site-header-link">Portfolio</a>
+      <a href="../about.html"   class="site-header-link">About</a>
+    </nav>
+  </header>
+
+  <main class="main-content">
+    <div class="container">
+
+      <header class="project-header">
+        <a href="../categories/integrated-marketing.html" class="project-back">
+          <span class="arrow" aria-hidden="true">←</span> Integrated Marketing
+        </a>
+        <h1 class="project-title">Netflix is a Joke Fest 2024 — Portraits of Comedy</h1>
+      </header>
+
+      <div class="project-body">
+
+        <!-- Left: info -->
+        <div class="project-info">
+          <div class="project-description">
+            <p>The Netflix is a Joke 2024 Talent Campaign evolved the event's identity into a full visual universe — bold, irreverent, playful and deeply character-driven. Using the festival's vibrant palette and layered 'sticker' design system, we built a world where every element felt alive with personality and wit.</p>
+            <p>Partnering with SNL photographer Mary Ellen Matthews, we captured 25 of the world's top comedians through cinematic portraits that blended humor, personality, and design in equal measure. Together, the photography and creative direction brought the brand world to life — uniting an unprecedented roster of talent under the unmistakable spirit and visual language of the largest comedy festival in the world.</p>
+          </div>
+          <dl class="project-meta">
+            <div class="meta-row">
+              <dt class="meta-key">Role</dt>
+              <dd class="meta-value">Executive Creative Director<br>Designer</dd>
+            </div>
+            <div class="meta-row">
+              <dt class="meta-key">Date</dt>
+              <dd class="meta-value">May 2024</dd>
+            </div>
+            <div class="meta-row">
+              <dt class="meta-key">Partners</dt>
+              <dd class="meta-value partner-list">
+                <div class="partner-row">
+                  <span>Cold Open</span>
+                  <span class="partner-role">design</span>
+                </div>
+                <div class="partner-row">
+                  <span>Mary Ellen Matthews</span>
+                  <span class="partner-role">photography</span>
+                </div>
+                <div class="partner-row">
+                  <span>ACME Brooklyn</span>
+                  <span class="partner-role">props</span>
+                </div>
+                <div class="partner-row">
+                  <span>Midnight Oil</span>
+                  <span class="partner-role">finishing</span>
+                </div>
+              </dd>
+            </div>
+            <div class="meta-row">
+              <dt class="meta-key">Awards</dt>
+              <dd class="meta-value award-lines">
+                <div class="award-text">
+                  <span class="award-winner">2024 Clio Award Winner</span>
+                  <span class="award-category">Key Art Craft</span>
+                  <span class="award-category">Digital Outdoor</span>
+                  <span class="award-category">Mixed Campaign</span>
+                </div>
+                <div class="clio-statues" aria-hidden="true">
+                  <span class="clio-statue-wrap clio-statue-wrap--silver">
+                    <img class="clio-statue" src="https://framerusercontent.com/images/Xm6WxVqOlG3X9Oae8TSZgQ6r1W0.png" alt="">
+                  </span>
+                  <span class="clio-statue-wrap clio-statue-wrap--silver">
+                    <img class="clio-statue" src="https://framerusercontent.com/images/Xm6WxVqOlG3X9Oae8TSZgQ6r1W0.png" alt="">
+                  </span>
+                  <span class="clio-statue-wrap clio-statue-wrap--bronze">
+                    <img class="clio-statue" src="https://framerusercontent.com/images/Xm6WxVqOlG3X9Oae8TSZgQ6r1W0.png" alt="">
+                  </span>
+                </div>
+              </dd>
+            </div>
+          </dl>
+        </div>
+
+        <!-- Right: images -->
+        <div class="project-images">
+
+          <div class="poc-carousel">
+
+            <div class="kac-tabs" role="tablist" aria-label="Campaign images">
+              <button class="kac-tab active" data-set="all" role="tab" aria-selected="true">Portraits of Comedy</button>
+              <div class="poc-controls">
+                <button class="poc-expand" aria-label="Expand to full view">
+                  <svg width="11" height="11" viewBox="0 0 11 11" fill="none" aria-hidden="true">
+                    <path d="M1 3.5V1H3.5M7.5 1H10V3.5M10 7.5V10H7.5M3.5 10H1V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="kac-stage kac-stage--wide">
+              <img class="kac-img" src="" alt="" hidden>
+              <div class="kac-empty">No images yet</div>
+            </div>
+
+            <div class="av-controls" hidden>
+              <div class="av-controls-top">
+                <button class="av-nav-btn av-nav-prev" aria-label="Previous image">←</button>
+                <div class="av-dot-track">
+                  <div class="av-dot-row" aria-hidden="true"></div>
+                </div>
+                <button class="av-nav-btn av-nav-next" aria-label="Next image">→</button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Stacked campaign images -->
+          <div class="project-images" data-gallery-path="../images/portfolio/integrated-marketing/portraits/campaign/">
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="container">
+    <div class="site-footer">
+      <span class="footer-copy">© 2025 Evan Cuttic</span>
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="../work.html"    class="footer-link">Portfolio</a>
+        <a href="../about.html"   class="footer-link">About</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- Fullscreen overlay for expanded carousel view -->
+  <div class="poc-overlay" id="poc-overlay" hidden>
+    <button class="poc-overlay-close" aria-label="Close expanded view">✕</button>
+    <button class="poc-overlay-prev" aria-label="Previous image">←</button>
+    <img class="poc-overlay-img" src="" alt="">
+    <button class="poc-overlay-next" aria-label="Next image">→</button>
+  </div>
+
+  <script src="../js/main.js"></script>
+  <script>
+  (function () {
+
+    // ─── IMAGE DATA ───────────────────────────────────────────────
+    // Carousel portraits. Add paths as: '../images/portfolio/integrated-marketing/portraits/carousel/niaj-portraitsNN.webp'
+    var IMAGES = [
+      '../images/portfolio/integrated-marketing/portraits/carousel/niaj-portraits01.webp',
+      '../images/portfolio/integrated-marketing/portraits/carousel/niaj-portraits02.webp',
+      '../images/portfolio/integrated-marketing/portraits/carousel/niaj-portraits03.webp',
+      '../images/portfolio/integrated-marketing/portraits/carousel/niaj-portraits04.webp',
+      '../images/portfolio/integrated-marketing/portraits/carousel/niaj-portraits05.webp',
+      '../images/portfolio/integrated-marketing/portraits/carousel/niaj-portraits06.webp',
+      '../images/portfolio/integrated-marketing/portraits/carousel/niaj-portraits07.webp',
+      '../images/portfolio/integrated-marketing/portraits/carousel/niaj-portraits08.webp',
+      '../images/portfolio/integrated-marketing/portraits/carousel/niaj-portraits09.webp',
+      '../images/portfolio/integrated-marketing/portraits/carousel/niaj-portraits10.webp',
+      '../images/portfolio/integrated-marketing/portraits/carousel/niaj-portraits11.webp',
+      '../images/portfolio/integrated-marketing/portraits/carousel/niaj-portraits12.webp',
+      '../images/portfolio/integrated-marketing/portraits/carousel/niaj-portraits13.webp',
+      '../images/portfolio/integrated-marketing/portraits/carousel/niaj-portraits14.webp',
+      '../images/portfolio/integrated-marketing/portraits/carousel/niaj-portraits15.webp',
+      '../images/portfolio/integrated-marketing/portraits/carousel/niaj-portraits16.webp',
+      '../images/portfolio/integrated-marketing/portraits/carousel/niaj-portraits17.webp',
+      '../images/portfolio/integrated-marketing/portraits/carousel/niaj-portraits18.webp',
+      '../images/portfolio/integrated-marketing/portraits/carousel/niaj-portraits19.webp',
+      '../images/portfolio/integrated-marketing/portraits/carousel/niaj-portraits20.webp',
+      '../images/portfolio/integrated-marketing/portraits/carousel/niaj-portraits21.webp',
+      '../images/portfolio/integrated-marketing/portraits/carousel/niaj-portraits22.webp',
+      '../images/portfolio/integrated-marketing/portraits/carousel/niaj-portraits23.webp',
+      '../images/portfolio/integrated-marketing/portraits/carousel/niaj-portraits24.webp',
+      '../images/portfolio/integrated-marketing/portraits/carousel/niaj-portraits25.webp',
+      '../images/portfolio/integrated-marketing/portraits/carousel/niaj-portraits26.webp',
+    ];
+    // ─────────────────────────────────────────────────────────────
+
+    var img          = document.querySelector('.poc-carousel .kac-img');
+    var empty        = document.querySelector('.poc-carousel .kac-empty');
+    var prevBtn      = document.querySelector('.poc-carousel .av-nav-prev');
+    var nextBtn      = document.querySelector('.poc-carousel .av-nav-next');
+    var controlsEl   = document.querySelector('.poc-carousel .av-controls');
+    var dotTrack     = document.querySelector('.poc-carousel .av-dot-track');
+    var expandBtn    = document.querySelector('.poc-expand');
+    var overlay      = document.getElementById('poc-overlay');
+    var overlayImg   = document.querySelector('.poc-overlay-img');
+    var overlayClose = document.querySelector('.poc-overlay-close');
+    var overlayPrev  = document.querySelector('.poc-overlay-prev');
+    var overlayNext  = document.querySelector('.poc-overlay-next');
+
+    if (!img) return;
+
+    var index = 0;
+
+    function setImage(src) {
+      img.classList.add('fading');
+      setTimeout(function () {
+        img.src = src;
+        img.alt = 'Portraits of Comedy — image ' + (index + 1);
+        img.classList.remove('fading');
+      }, 150);
+    }
+
+    function renderDotTrack() {
+      if (!dotTrack) return;
+      var dotRow = dotTrack.querySelector('.av-dot-row');
+      if (!dotRow) return;
+
+      dotRow.innerHTML = '';
+      IMAGES.forEach(function (item, i) {
+        var dot = document.createElement('span');
+        dot.className = 'av-dot' +
+          (i < index   ? ' is-past'   : '') +
+          (i === index ? ' is-active' : '');
+        dot.addEventListener('click', function () {
+          if (i !== index) { index = i; render(); }
+        });
+        dotRow.appendChild(dot);
+      });
+    }
+
+    function render() {
+      var has = IMAGES.length > 0;
+
+      img.hidden        = !has;
+      empty.hidden      =  has;
+      controlsEl.hidden = !has;
+
+      if (has) {
+        setImage(IMAGES[index]);
+        if (prevBtn) prevBtn.disabled = index === 0;
+        if (nextBtn) nextBtn.disabled = index === IMAGES.length - 1;
+        renderDotTrack();
+      }
+    }
+
+    if (prevBtn) prevBtn.addEventListener('click', function () {
+      if (index > 0) { index--; render(); }
+    });
+
+    if (nextBtn) nextBtn.addEventListener('click', function () {
+      if (index < IMAGES.length - 1) { index++; render(); }
+    });
+
+    function syncOverlay() {
+      if (overlay.hidden) return;
+      overlayImg.src = IMAGES[index];
+      overlayImg.alt = 'Portraits of Comedy — image ' + (index + 1);
+      overlayPrev.disabled = index === 0;
+      overlayNext.disabled = index === IMAGES.length - 1;
+    }
+
+    expandBtn.addEventListener('click', function () {
+      overlay.hidden = false;
+      document.body.style.overflow = 'hidden';
+      syncOverlay();
+    });
+
+    overlayClose.addEventListener('click', function () {
+      overlay.hidden = true;
+      document.body.style.overflow = '';
+    });
+
+    overlayPrev.addEventListener('click', function () {
+      if (index > 0) { index--; render(); syncOverlay(); }
+    });
+
+    overlayNext.addEventListener('click', function () {
+      if (index < IMAGES.length - 1) { index++; render(); syncOverlay(); }
+    });
+
+
+    overlay.addEventListener('click', function (e) {
+      if (e.target === overlay) { overlay.hidden = true; document.body.style.overflow = ''; }
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !overlay.hidden) { overlay.hidden = true; document.body.style.overflow = ''; }
+      if (e.key === 'ArrowLeft'  && index > 0)  { index--; render(); syncOverlay(); }
+      if (e.key === 'ArrowRight' && index < IMAGES.length - 1) { index++; render(); syncOverlay(); }
+    });
+
+    render();
+
+    // Click the carousel image itself to open the full overlay
+    img.addEventListener('click', function () {
+      if (IMAGES.length === 0) return;
+      overlay.hidden = false;
+      document.body.style.overflow = 'hidden';
+      syncOverlay();
+    });
+
+  }());
+  </script>
+
+</body>
+</html>

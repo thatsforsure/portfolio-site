@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LA Closet Design — Brand Identity + Strategy — Evan Cuttic</title>
+  <meta name="description" content="Complete brand strategy, visual identity, and content system for LA Closet Design, built by Evan Cuttic.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='black'/%3E%3Ctext x='16' y='22' font-family='sans-serif' font-size='13' font-weight='900' fill='white' text-anchor='middle' letter-spacing='1'%3EEC%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a href="../index.html" class="site-header-logo" aria-label="Evan Cuttic — Home">
+      <div class="logo-mark" aria-hidden="true">EC</div>
+      <span class="site-header-name">Evan Cuttic</span>
+    </a>
+    <nav class="site-header-nav" aria-label="Main navigation">
+      <a href="../work.html"    class="site-header-link">Portfolio</a>
+      <a href="../about.html"   class="site-header-link">About</a>
+    </nav>
+  </header>
+
+  <main class="main-content">
+    <div class="container">
+
+      <header class="project-header">
+        <a href="../categories/brand-identity.html" class="project-back">
+          <span class="arrow" aria-hidden="true">←</span> Brand Identity + Design Systems
+        </a>
+        <h1 class="project-title">LA Closet Design — Brand Identity + Strategy</h1>
+      </header>
+
+      <div class="project-body">
+
+        <div class="project-info">
+          <div class="project-description">
+            <p>LA Closet Design is unlike most design firms — it lives in the rarefied world of ultra-luxury closets, serving a global, high-net-worth clientele entirely through reputation and word of mouth. For nearly two decades, the business had never formalized a brand strategy, visual identity, or marketing system.</p>
+            <p>Working alongside Founder and CEO Lisa Adams, I defined their audience, clarified positioning, and built a comprehensive visual identity system that could flex across projects of all scales. I also developed a premium content strategy — hero films, social storytelling, and digital assets — that showcases the artistry of their work while strengthening long-term brand equity.</p>
+          </div>
+          <dl class="project-meta">
+            <div class="meta-row">
+              <dt class="meta-key">Role</dt>
+              <dd class="meta-value">Chief Brand Officer<br>Executive Creative Director</dd>
+            </div>
+            <div class="meta-row">
+              <dt class="meta-key">Date</dt>
+              <dd class="meta-value">August 2025</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div class="project-images">
+
+          <video class="gallery-video lacd-vid" src="../images/portfolio/brand-identity/lacd-identity/lacd-identity-01.mp4" autoplay loop muted playsinline></video>
+
+          <video class="gallery-video lacd-vid" src="../images/portfolio/brand-identity/lacd-identity/lacd-identity-02.mp4" autoplay loop muted playsinline></video>
+
+          <video class="gallery-video lacd-vid" src="../images/portfolio/brand-identity/lacd-identity/lacd-identity-03.mp4" autoplay loop muted playsinline></video>
+
+          <div class="images-2up">
+            <img src="../images/portfolio/brand-identity/lacd-identity/lacd-identity-04.png" alt="LA Closet Design" loading="lazy" style="width:100%">
+            <video class="gallery-video lacd-vid" src="../images/portfolio/brand-identity/lacd-identity/lacd-identity-05.mp4" autoplay loop muted playsinline></video>
+          </div>
+
+          <video class="gallery-video lacd-vid" src="../images/portfolio/brand-identity/lacd-identity/lacd-identity-06.mp4" autoplay loop muted playsinline></video>
+
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="container">
+    <div class="site-footer">
+      <span class="footer-copy">© 2025 Evan Cuttic</span>
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="../work.html"    class="footer-link">Portfolio</a>
+        <a href="../about.html"   class="footer-link">About</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script>
+    document.querySelectorAll('.lacd-vid').forEach(function (v, i) {
+      v.style.cursor = 'pointer';
+      v.addEventListener('click', function () {
+        if (i === 0 && v.muted) {
+          v.muted = false;
+          v.volume = 1;
+        } else {
+          if (v.paused) v.play(); else v.pause();
+        }
+      });
+    });
+  </script>
+</body>
+</html>

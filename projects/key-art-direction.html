@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Key Art Direction — Evan Cuttic</title>
+  <meta name="description" content="Key art direction by Evan Cuttic — Netflix, YouTube, and HBO.">
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='black'/%3E%3Ctext x='16' y='22' font-family='sans-serif' font-size='13' font-weight='900' fill='white' text-anchor='middle' letter-spacing='1'%3EEC%3C/text%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .key-art-carousel .av-dot.is-active { width: 6px; background: var(--gray-700); cursor: default; }
+    .key-art-carousel .av-dot.is-active::after { display: none; }
+  </style>
+</head>
+<body>
+
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a href="../index.html" class="site-header-logo" aria-label="Evan Cuttic — Home">
+      <div class="logo-mark" aria-hidden="true">EC</div>
+      <span class="site-header-name">Evan Cuttic</span>
+    </a>
+    <nav class="site-header-nav" aria-label="Main navigation">
+      <a href="../work.html"    class="site-header-link">Portfolio</a>
+      <a href="../about.html"   class="site-header-link">About</a>
+    </nav>
+  </header>
+
+  <main class="main-content">
+    <div class="container">
+
+      <header class="project-header">
+        <a href="../categories/art-direction.html" class="project-back">
+          <span class="arrow" aria-hidden="true">←</span> Art + Motion Direction
+        </a>
+        <h1 class="project-title">Key Art Direction</h1>
+      </header>
+
+      <div class="project-body">
+
+        <div class="project-info">
+          <div class="project-description">
+            <p>No single piece of creative makes a campaign successful.</p>
+            <p>But one of the most visible—and enduring—is a series or film's key art. It's often the first creative expression of a campaign, and it carries real weight. In many cases, it becomes the most recognizable and lasting visual representation of a title brand.</p>
+            <p>I've brought 100+ brands to market across Netflix, YouTube and HBO, from visual identities and global guidelines to fully integrated, multi-platform marketing campaigns.</p>
+            <p>Browse by studio using the toggles below.</p>
+          </div>
+          <dl class="project-meta">
+            <div class="meta-row">
+              <dt class="meta-key">Role</dt>
+              <dd class="meta-value" id="kac-role">Director, Global Creative Marketing</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div class="project-images">
+
+          <div class="key-art-carousel">
+
+            <div class="kac-tabs" role="tablist" aria-label="Select studio">
+              <button class="kac-tab active" data-company="netflix" role="tab" aria-selected="true">Netflix</button>
+              <button class="kac-tab" data-company="youtube" role="tab" aria-selected="false">YouTube</button>
+              <button class="kac-tab" data-company="hbo" role="tab" aria-selected="false">HBO</button>
+            </div>
+
+            <div class="kac-stage">
+              <img class="kac-img" src="" alt="" hidden>
+              <div class="kac-empty">No images yet</div>
+            </div>
+
+            <div class="av-controls" hidden>
+              <div class="av-controls-top">
+                <button class="av-nav-btn av-nav-prev" aria-label="Previous image">←</button>
+                <div class="av-dot-track">
+                  <div class="av-dot-row" aria-hidden="true"></div>
+                </div>
+                <button class="av-nav-btn av-nav-next" aria-label="Next image">→</button>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="container">
+    <div class="site-footer">
+      <span class="footer-copy">© 2025 Evan Cuttic</span>
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="../work.html"    class="footer-link">Portfolio</a>
+        <a href="../about.html"   class="footer-link">About</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script>
+  (function () {
+
+    // ─── IMAGE DATA ──────────────────────────────────────────────
+    var IMAGES = {
+      netflix: [
+        "../images/portfolio/art-direction/key-art/netflix/Netflix-EmilyinParis-S3-Emily.webp",
+        "../images/portfolio/art-direction/key-art/netflix/Netflix-EmilyinParis-S4-Part1.webp",
+        "../images/portfolio/art-direction/key-art/netflix/Netflix-EmilyinParis-S4-Part2.webp",
+        "../images/portfolio/art-direction/key-art/netflix/Netflix-NobodyWantsThis-S1.webp",
+        "../images/portfolio/art-direction/key-art/netflix/Netflix-DeadtoMe-S1.webp",
+        "../images/portfolio/art-direction/key-art/netflix/Netflix-DeadtoMe-S2.webp",
+        "../images/portfolio/art-direction/key-art/netflix/Netflix-DeadtoMe-S3.webp",
+        "../images/portfolio/art-direction/key-art/netflix/Netflix-DeadtoMe-S3alt.webp",
+        "../images/portfolio/art-direction/key-art/netflix/Netflix-AManontheInside-S1.webp",
+        "../images/portfolio/art-direction/key-art/netflix/Netflix-GraceandFranke-S6.webp",
+        "../images/portfolio/art-direction/key-art/netflix/Netflix-GraceandFrankie-S5.webp",
+        "../images/portfolio/art-direction/key-art/netflix/Netflix-GraceandFrankie-S7.webp",
+        "../images/portfolio/art-direction/key-art/netflix/Netflix-GraceandFrankie-S7Teaser.webp",
+        "../images/portfolio/art-direction/key-art/netflix/Netflix-Uncoupled-S1-copy.webp",
+        "../images/portfolio/art-direction/key-art/netflix/Netflix-FisforFamilyS3.webp",
+        "../images/portfolio/art-direction/key-art/netflix/Netflix-FisforFamilyS4.webp",
+        "../images/portfolio/art-direction/key-art/netflix/Netflix-NeverHaveIEver-S4-copy.webp",
+        "../images/portfolio/art-direction/key-art/netflix/Netflix-RunningPoint-S1.webp",
+        "../images/portfolio/art-direction/key-art/netflix/Netflix-SantaClaritaDiet-S3.webp",
+        "../images/portfolio/art-direction/key-art/netflix/Netflix-SpaceForce-S1-copy.webp",
+        "../images/portfolio/art-direction/key-art/netflix/Netflix-TheKominskyMethod-S3-copy.webp",
+        "../images/portfolio/art-direction/key-art/netflix/Netflix-TheLetterForTheKing.webp",
+      ],
+      youtube: [
+        "../images/portfolio/art-direction/key-art/youtube/YouTube-CobraKai-S1-Alt.webp",
+        "../images/portfolio/art-direction/key-art/youtube/YouTube-CobraKai-S1.webp",
+        "../images/portfolio/art-direction/key-art/youtube/YouTube-CobraKai-S2.webp",
+        "../images/portfolio/art-direction/key-art/youtube/YouTube-Lindsey-Stirling-Brave-Enough.webp",
+        "../images/portfolio/art-direction/key-art/youtube/YouTube-Rhett-and-Link-Buddy-System.webp",
+        "../images/portfolio/art-direction/key-art/youtube/YouTube-Ryan-Hansen-Solves-Crimes-on-Television-S1.webp",
+        "../images/portfolio/art-direction/key-art/youtube/YouTube-Sideswiped-S1--Main.webp",
+        "../images/portfolio/art-direction/key-art/youtube/YouTube-StepUpHighWater-Alt.webp",
+        "../images/portfolio/art-direction/key-art/youtube/YouTube-StepUpHighWater-Main.webp",
+        "../images/portfolio/art-direction/key-art/youtube/YouTube-The-Keys-of-Christmas.webp",
+        "../images/portfolio/art-direction/key-art/youtube/YouTube-DanTDM-Creates-a-Big-Scene-S1.webp",
+        "../images/portfolio/art-direction/key-art/youtube/YouTube-The-Thinning.webp",
+        "../images/portfolio/art-direction/key-art/youtube/YouTube-Fruit-Ninja-Frenzy-Force-S1.webp",
+        "../images/portfolio/art-direction/key-art/youtube/YouTube-Furze-World-Wonders.webp",
+        "../images/portfolio/art-direction/key-art/youtube/YouTube-Impulse-S1.webp",
+        "../images/portfolio/art-direction/key-art/youtube/YouTube-Impulse-S2-Alt-2.webp",
+        "../images/portfolio/art-direction/key-art/youtube/YouTube-Impulse-S2.webp",
+        "../images/portfolio/art-direction/key-art/youtube/YouTube-Jingle-Ballin--Main.webp",
+        "../images/portfolio/art-direction/key-art/youtube/YouTube-King-of-the-Dancehall-S1.webp",
+        "../images/portfolio/art-direction/key-art/youtube/YouTube-Lazer-Team-2-Main.webp",
+        "../images/portfolio/art-direction/key-art/youtube/YouTube-Lifeline-S1.webp",
+        "../images/portfolio/art-direction/key-art/youtube/YouTube-Main-Alt.webp",
+        "../images/portfolio/art-direction/key-art/youtube/YouTube-Mind-Field-S1-Main.webp",
+        "../images/portfolio/art-direction/key-art/youtube/YouTube-Mind-Field-S2-Main.webp",
+        "../images/portfolio/art-direction/key-art/youtube/YouTube-Paranormal-Action-Squad.webp",
+      ],
+      hbo: [
+        "../images/portfolio/art-direction/key-art/hbo/HBO-Bessie.webp",
+        "../images/portfolio/art-direction/key-art/hbo/HBO-BoardwalkEmpire-S3.webp",
+        "../images/portfolio/art-direction/key-art/hbo/HBO-Entourage.webp",
+        "../images/portfolio/art-direction/key-art/hbo/HBO-FooFightersSonicHighways.webp",
+        "../images/portfolio/art-direction/key-art/hbo/HBO-GameofThrones-S4-Jon.webp",
+        "../images/portfolio/art-direction/key-art/hbo/HBO-GameofThrones-S4.webp",
+        "../images/portfolio/art-direction/key-art/hbo/HBO-GameofThrones-S5.webp",
+        "../images/portfolio/art-direction/key-art/hbo/HBO-GameofThronesS6.webp",
+        "../images/portfolio/art-direction/key-art/hbo/HBO-Looking-S1.webp",
+        "../images/portfolio/art-direction/key-art/hbo/HBO-Looking-S2.webp",
+        "../images/portfolio/art-direction/key-art/hbo/HBO-Veep-S3.webp",
+        "../images/portfolio/art-direction/key-art/hbo/HBO-Nightingale.webp",
+        "../images/portfolio/art-direction/key-art/hbo/HBO-RealTime.webp",
+        "../images/portfolio/art-direction/key-art/hbo/HBO-TheNewsroom-S3.webp",
+        "../images/portfolio/art-direction/key-art/hbo/HBO-TrueBlood-S7.webp",
+      ]
+    };
+
+    var COLORS = { netflix: '#B20710', youtube: '#FF0000', hbo: '#9e86ff' };
+    var ROLES  = {
+      netflix: 'Director<br>Global Creative Marketing',
+      youtube: 'Product Marketing Lead<br>YouTube Premium',
+      hbo:     'Sr. Manager<br>Originals Marketing and Advertising'
+    };
+    // ─────────────────────────────────────────────────────────────
+
+    var tabs       = document.querySelectorAll('.kac-tab');
+    var img        = document.querySelector('.kac-img');
+    var empty      = document.querySelector('.kac-empty');
+    var prevBtn    = document.querySelector('.av-nav-prev');
+    var nextBtn    = document.querySelector('.av-nav-next');
+    var controlsEl = document.querySelector('.av-controls');
+    var dotTrack   = document.querySelector('.av-dot-track');
+    var roleEl     = document.getElementById('kac-role');
+
+    if (!img) return;
+
+    var company = 'netflix';
+    var index   = 0;
+
+    function imgs() { return IMAGES[company]; }
+
+    function setImage(src, alt) {
+      img.classList.add('fading');
+      setTimeout(function () {
+        img.src = src;
+        img.alt = alt;
+        img.classList.remove('fading');
+      }, 150);
+    }
+
+    function renderDotTrack() {
+      if (!dotTrack) return;
+      var dotRow = dotTrack.querySelector('.av-dot-row');
+      if (!dotRow) return;
+
+      var list = imgs();
+      dotRow.innerHTML = '';
+
+      list.forEach(function (item, i) {
+        var dot = document.createElement('span');
+        dot.className = 'av-dot' +
+          (i < index   ? ' is-past'   : '') +
+          (i === index ? ' is-active' : '');
+        dot.addEventListener('click', function () {
+          if (i !== index) { index = i; render(); }
+        });
+        dotRow.appendChild(dot);
+      });
+    }
+
+    function render() {
+      var list = imgs();
+      var has  = list.length > 0;
+
+      img.hidden        = !has;
+      empty.hidden      =  has;
+      controlsEl.hidden = !has;
+
+      if (roleEl) { roleEl.innerHTML = ROLES[company]; }
+
+      if (has) {
+        setImage(list[index], company + ' key art ' + (index + 1));
+        if (prevBtn) prevBtn.disabled = index === 0;
+        if (nextBtn) nextBtn.disabled = index === list.length - 1;
+        renderDotTrack();
+      }
+    }
+
+    tabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        tabs.forEach(function (t) {
+          t.classList.remove('active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+        company = tab.dataset.company;
+        index   = 0;
+        render();
+      });
+    });
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', function () {
+        if (index > 0) { index--; render(); }
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', function () {
+        if (index < imgs().length - 1) { index++; render(); }
+      });
+    }
+
+    img.style.cursor = 'pointer';
+    img.addEventListener('click', function () {
+      index = (index + 1) % imgs().length; render();
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft'  && index > 0)               { index--; render(); }
+      if (e.key === 'ArrowRight' && index < imgs().length - 1) { index++; render(); }
+    });
+
+    render();
+
+  }());
+  </script>
+
+</body>
+</html>
