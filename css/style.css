@@ -1502,6 +1502,7 @@ body.is-splash {
   object-fit: contain;
   display: block;
   user-select: none;
+  transition: opacity 0.2s ease;
 }
 
 .lb-close {

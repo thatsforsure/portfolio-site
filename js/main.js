@@ -207,15 +207,38 @@ document.addEventListener('DOMContentLoaded', () => {
     const lbClose = lb.querySelector('.lb-close');
     const lbPrev  = lb.querySelector('.lb-prev');
     const lbNext  = lb.querySelector('.lb-next');
-    let group = [];
-    let idx   = 0;
+    let group   = [];
+    let idx     = 0;
+    let showGen = 0;
 
     function show(i) {
       idx = i;
-      lbImg.src = group[i].src;
-      lbImg.alt = group[i].alt || '';
       lbPrev.disabled = i === 0;
       lbNext.disabled = i === group.length - 1;
+
+      const src = group[i].src;
+      const alt = group[i].alt || '';
+      const gen = ++showGen;
+
+      // Preload the target image, then cross-fade in
+      const tmp = new Image();
+      tmp.onload = function () {
+        if (gen !== showGen) return;            // superseded by a newer call
+        lbImg.style.opacity = '0';
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {   // two rAFs ensure fade-out paints first
+            if (gen !== showGen) return;
+            lbImg.src = src;
+            lbImg.alt = alt;
+            lbImg.style.opacity = '';
+          });
+        });
+      };
+      tmp.src = src;
+
+      // Speculatively preload neighbours so subsequent navigations feel instant
+      if (i + 1 < group.length) new Image().src = group[i + 1].src;
+      if (i - 1 >= 0)           new Image().src = group[i - 1].src;
     }
 
     function open(imgs, i) {
