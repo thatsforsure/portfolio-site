@@ -1308,6 +1308,7 @@ body.is-splash {
   position: relative;
   width: 100%;
   aspect-ratio: 27 / 40;
+  max-height: calc(100vh - var(--header-h) - 6rem);
   background: var(--gray-100);
   overflow: hidden;
   user-select: none;
