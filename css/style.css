@@ -944,30 +944,37 @@ body.is-splash {
   margin-top: var(--s1);
 }
 
-.clients-section {
-  padding-top: var(--s8);
-  border-top: 1px solid var(--gray-200);
-  margin-top: var(--s8);
+.exp-item-split {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s10);
 }
 
-.clients-section h3 {
+.clients-section {
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.clients-label {
+  display: block;
   font-size: var(--t11);
-  font-weight: 700;
-  letter-spacing: var(--ls-wider);
-  text-transform: uppercase;
-  margin-bottom: var(--s6);
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--gray-400, #aaa);
+  margin-bottom: 0.25rem;
 }
 
 .client-logos {
   display: flex;
   align-items: center;
-  gap: var(--s8);
-  flex-wrap: wrap;
+  gap: var(--s4);
+  flex-wrap: nowrap;
 }
 
 .client-logo {
-  fill: #2a2a2a;
   display: block;
+  width: 52px;
+  height: auto;
 }
 
 
