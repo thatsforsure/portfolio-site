@@ -610,7 +610,9 @@ body.is-splash {
   top: var(--header-h);
   z-index: 50;
   background: #fff;
-  padding: var(--s8) 0 var(--s6);
+  margin-left: calc(-1 * var(--gutter));
+  margin-right: calc(-1 * var(--gutter));
+  padding: var(--s8) var(--gutter) var(--s6);
   border-bottom: 1px solid var(--gray-200);
   margin-bottom: var(--s10);
 }
