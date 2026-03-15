@@ -1511,6 +1511,12 @@ body.is-splash {
   transition: opacity 0.2s ease;
 }
 
+.lb-video {
+  max-width: calc(100vw - 160px);
+  max-height: calc(100vh - 80px);
+  display: block;
+}
+
 .lb-close {
   position: absolute;
   top: var(--s5);
@@ -1549,8 +1555,9 @@ body.is-splash {
 .lb-prev { left: 0; }
 .lb-next { right: 0; }
 
-/* Zoom cursor on all clickable project images */
-.project-images img:not(.kac-img) {
+/* Zoom cursor on all clickable project images and videos */
+.project-images img:not(.kac-img),
+.project-images video {
   cursor: zoom-in;
 }
 

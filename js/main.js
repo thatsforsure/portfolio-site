@@ -200,10 +200,12 @@ document.addEventListener('DOMContentLoaded', () => {
       '<button class="lb-close" aria-label="Close">✕</button>' +
       '<button class="lb-prev"  aria-label="Previous">←</button>' +
       '<img class="lb-img" src="" alt="">' +
+      '<video class="lb-video" controls playsinline loop hidden></video>' +
       '<button class="lb-next"  aria-label="Next">→</button>';
     document.body.appendChild(lb);
 
     const lbImg   = lb.querySelector('.lb-img');
+    const lbVideo = lb.querySelector('.lb-video');
     const lbClose = lb.querySelector('.lb-close');
     const lbPrev  = lb.querySelector('.lb-prev');
     const lbNext  = lb.querySelector('.lb-next');
@@ -216,33 +218,48 @@ document.addEventListener('DOMContentLoaded', () => {
       lbPrev.disabled = i === 0;
       lbNext.disabled = i === group.length - 1;
 
-      const src = group[i].src;
-      const alt = group[i].alt || '';
-      const gen = ++showGen;
+      const el      = group[i];
+      const isVideo = el.tagName === 'VIDEO';
 
-      // Preload the target image, then cross-fade in
-      const tmp = new Image();
-      tmp.onload = function () {
-        if (gen !== showGen) return;            // superseded by a newer call
-        lbImg.style.opacity = '0';
-        requestAnimationFrame(function () {
-          requestAnimationFrame(function () {   // two rAFs ensure fade-out paints first
-            if (gen !== showGen) return;
-            lbImg.src = src;
-            lbImg.alt = alt;
-            lbImg.style.opacity = '';
+      if (isVideo) {
+        lbImg.hidden   = true;
+        lbVideo.hidden = false;
+        lbVideo.src    = el.src;
+        lbVideo.play();
+      } else {
+        lbVideo.pause();
+        lbVideo.src    = '';
+        lbVideo.hidden = true;
+        lbImg.hidden   = false;
+
+        const src = el.src;
+        const alt = el.alt || '';
+        const gen = ++showGen;
+
+        // Preload the target image, then cross-fade in
+        const tmp = new Image();
+        tmp.onload = function () {
+          if (gen !== showGen) return;            // superseded by a newer call
+          lbImg.style.opacity = '0';
+          requestAnimationFrame(function () {
+            requestAnimationFrame(function () {   // two rAFs ensure fade-out paints first
+              if (gen !== showGen) return;
+              lbImg.src = src;
+              lbImg.alt = alt;
+              lbImg.style.opacity = '';
+            });
           });
-        });
-      };
-      tmp.src = src;
+        };
+        tmp.src = src;
 
-      // Speculatively preload neighbours so subsequent navigations feel instant
-      if (i + 1 < group.length) new Image().src = group[i + 1].src;
-      if (i - 1 >= 0)           new Image().src = group[i - 1].src;
+        // Speculatively preload neighbouring images
+        if (i + 1 < group.length && group[i + 1].tagName !== 'VIDEO') new Image().src = group[i + 1].src;
+        if (i - 1 >= 0           && group[i - 1].tagName !== 'VIDEO') new Image().src = group[i - 1].src;
+      }
     }
 
-    function open(imgs, i) {
-      group = imgs;
+    function open(els, i) {
+      group = els;
       lb.removeAttribute('hidden');
       document.body.style.overflow = 'hidden';
       show(i);
@@ -251,6 +268,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function close() {
       lb.setAttribute('hidden', '');
       document.body.style.overflow = '';
+      lbVideo.pause();
+      lbVideo.src = '';
     }
 
     lbClose.addEventListener('click', close);
@@ -266,13 +285,15 @@ document.addEventListener('DOMContentLoaded', () => {
       if (e.key === 'ArrowRight' && idx < group.length - 1) show(idx + 1);
     });
 
-    // Event delegation — works with images loaded dynamically via placeholder-swap
+    // Event delegation — works with images and videos, including dynamically loaded ones
     $$('.project-images').forEach(wrap => {
       wrap.addEventListener('click', e => {
-        const img = e.target.closest('img');
-        if (!img || img.classList.contains('kac-img')) return;
-        const imgs = Array.from(wrap.querySelectorAll('img:not(.kac-img)'));
-        open(imgs, imgs.indexOf(img));
+        const img = e.target.closest('img:not(.kac-img)');
+        const vid = e.target.closest('video');
+        const target = img || vid;
+        if (!target) return;
+        const els = Array.from(wrap.querySelectorAll('img:not(.kac-img), video'));
+        open(els, els.indexOf(target));
       });
     });
   }());
