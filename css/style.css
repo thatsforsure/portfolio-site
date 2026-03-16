@@ -982,6 +982,58 @@ body.is-splash {
   height: auto;
 }
 
+/* Visual awards display */
+.awards-visual {
+  display: flex;
+  flex-direction: column;
+  padding: var(--s2) 0;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.award-row {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--s8);
+  padding: var(--s4) 0;
+}
+
+.award-statues {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 3px;
+  width: 180px;
+  flex-shrink: 0;
+}
+
+.award-statue {
+  height: 42px;
+  width: auto;
+  display: block;
+}
+
+.award-statues--lg .award-statue {
+  height: 51px;
+}
+
+.award-statues--loose {
+  gap: 8px;
+}
+
+.award-statues--xl .award-statue {
+  height: 61px;
+}
+
+.award-name {
+  font-size: var(--t11);
+  font-weight: 700;
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+  color: var(--black);
+  line-height: 1;
+}
+
 
 /* ----------------------------------------------------------------
    12. CONTACT PAGE
