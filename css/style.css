@@ -714,6 +714,66 @@ body.is-splash {
   margin-top: 2px;
 }
 
+/* Press coverage list */
+.press-section {
+  margin-top: var(--s6);
+}
+
+.press-section-label {
+  margin-bottom: var(--s3);
+}
+
+.press-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.press-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s4);
+  padding: var(--s3) 0;
+  text-decoration: none;
+  color: inherit;
+}
+
+.press-headline {
+  font-size: var(--t11);
+  font-weight: 400;
+  color: var(--gray-700);
+  line-height: 1.4;
+  transition: color var(--fast) var(--ease);
+}
+
+.press-item:hover .press-headline {
+  color: var(--black);
+}
+
+.press-logo-cell {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.press-logo {
+  height: 12px;
+  width: auto;
+  opacity: 0.5;
+  transition: opacity var(--fast) var(--ease);
+  filter: grayscale(1);
+}
+
+/* ABC News: circle dominates height — size by NEWS text instead */
+.press-logo--abc {
+  height: 25px;
+}
+
+.press-item:hover .press-logo {
+  opacity: 0.8;
+}
+
 /* Pull quote */
 .pull-quote {
   margin: var(--s4) 0;

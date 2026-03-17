@@ -60,6 +60,32 @@
               <dd class="meta-value">2014</dd>
             </div>
           </dl>
+
+          <div class="press-section">
+            <p class="meta-key press-section-label">Press</p>
+            <div class="press-list">
+              <a class="press-item" href="https://www.cbsnews.com/news/the-game-of-thrones-epic-fan-experience/" target="_blank" rel="noopener">
+                <span class="press-headline">Inside the "Game of Thrones" Epic Fan Experience</span>
+                <span class="press-logo-cell"><img class="press-logo" src="../images/portfolio/interactive-experiential/epic-fan-experience/press-logos/press-cbsnews.webp" alt="CBS News"></span>
+              </a>
+              <a class="press-item" href="https://www.latimes.com/entertainment/tv/showtracker/la-et-st-game-of-thrones-season-4-new-york-premiere-20140321-story.html" target="_blank" rel="noopener">
+                <span class="press-headline">'Game of Thrones' Season 4: Westeros invades New York City</span>
+                <span class="press-logo-cell"><img class="press-logo" src="../images/portfolio/interactive-experiential/epic-fan-experience/press-logos/press-latimes.webp" alt="Los Angeles Times"></span>
+              </a>
+              <a class="press-item" href="https://www.huffpost.com/entry/game-of-thrones-epic-fan-experience_n_5008129" target="_blank" rel="noopener">
+                <span class="press-headline">'Game Of Thrones' Cast, George R.R. Martin Surprise Thousands Of Fans At Screening Event</span>
+                <span class="press-logo-cell"><img class="press-logo" src="../images/portfolio/interactive-experiential/epic-fan-experience/press-logos/press-huffpost.webp" alt="HuffPost"></span>
+              </a>
+              <a class="press-item" href="https://grantland.com/hollywood-prospectus/we-went-there-a-night-among-7000-game-of-thrones-maniacs-at-barclays-center/" target="_blank" rel="noopener">
+                <span class="press-headline">We Went There: A Night Among 7,000 'Game of Thrones' Maniacs at Barclays Center</span>
+                <span class="press-logo-cell"><img class="press-logo" src="../images/portfolio/interactive-experiential/epic-fan-experience/press-logos/press-grantland.webp" alt="Grantland"></span>
+              </a>
+              <a class="press-item" href="https://abcnews.go.com/blogs/entertainment/2014/03/game-of-thrones-author-george-r-r-martin-gives-lucky-fan-30000-throne" target="_blank" rel="noopener">
+                <span class="press-headline">'Game of Thrones' Author George R. R. Martin Gives Lucky Fan $30,000 Throne</span>
+                <span class="press-logo-cell"><img class="press-logo press-logo--abc" src="../images/portfolio/interactive-experiential/epic-fan-experience/press-logos/press-abcnews.webp" alt="ABC News"></span>
+              </a>
+            </div>
+          </div>
         </div>
 
         <div class="project-images" data-gallery-path="../images/portfolio/interactive-experiential/epic-fan-experience/">
@@ -76,5 +102,14 @@
   </footer>
 
   <script src="../js/main.js"></script>
+  <script>
+  window.addEventListener('load', function () {
+    var logos = document.querySelectorAll('.press-logo');
+    var cells = document.querySelectorAll('.press-logo-cell');
+    var maxW = 0;
+    logos.forEach(function (l) { maxW = Math.max(maxW, l.offsetWidth); });
+    cells.forEach(function (c) { c.style.minWidth = maxW + 'px'; });
+  });
+  </script>
 </body>
 </html>
