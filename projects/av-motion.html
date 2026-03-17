@@ -48,6 +48,14 @@
             <p>Browse by studio using the toggles below.</p>
           </div>
           <dl class="project-meta">
+            <div class="meta-row" id="avc-brand-row" hidden>
+              <dt class="meta-key">Brand</dt>
+              <dd class="meta-value" id="avc-brand"></dd>
+            </div>
+            <div class="meta-row" id="avc-title-row" hidden>
+              <dt class="meta-key">Title</dt>
+              <dd class="meta-value" id="avc-title" aria-live="polite"></dd>
+            </div>
             <div class="meta-row">
               <dt class="meta-key">Role</dt>
               <dd class="meta-value" id="avc-role">Director, Global Creative Marketing</dd>
@@ -59,7 +67,8 @@
 
           <div class="av-carousel">
 
-            <div class="kac-tabs" role="tablist" aria-label="Select studio">
+            <div class="kac-tabs pill-tabs" role="tablist" aria-label="Select studio">
+              <span class="kac-pill-thumb" aria-hidden="true"></span>
               <button class="kac-tab active" data-company="netflix" role="tab" aria-selected="true">Netflix</button>
               <button class="kac-tab" data-company="youtube" role="tab" aria-selected="false">YouTube</button>
               <button class="kac-tab" data-company="hbo" role="tab" aria-selected="false">HBO</button>
@@ -79,9 +88,6 @@
                   <div class="av-dot-row" aria-hidden="true"></div>
                 </div>
                 <button class="av-nav-btn av-nav-next" aria-label="Next video">→</button>
-              </div>
-              <div class="av-label-pill">
-                <span class="av-dot-label" aria-live="polite"></span>
               </div>
             </div>
 
@@ -119,37 +125,71 @@
     var company = 'netflix';
     var index   = 0;
 
+    var pillThumb  = document.querySelector('.av-carousel .kac-pill-thumb');
     var tabs       = document.querySelectorAll('.av-carousel .kac-tab');
     var video      = document.querySelector('.av-video');
     var empty      = document.querySelector('.av-carousel .kac-empty');
     var clickArea  = document.querySelector('.av-click-area');
     var controlsEl = document.querySelector('.av-controls');
     var dotTrack   = document.querySelector('.av-dot-track');
-    var labelEl    = document.querySelector('.av-dot-label');
     var prevBtn    = document.querySelector('.av-nav-prev');
     var nextBtn    = document.querySelector('.av-nav-next');
     var roleEl     = document.getElementById('avc-role');
+    var titleEl    = document.getElementById('avc-title');
+    var titleRow   = document.getElementById('avc-title-row');
+    var brandEl    = document.getElementById('avc-brand');
+    var brandRow   = document.getElementById('avc-brand-row');
+
+    var BRAND_NAMES = { netflix: 'Netflix', youtube: 'YouTube', hbo: 'HBO', abc: 'ABC' };
 
     if (!video) return;
 
     function vids() { return VIDEOS[company]; }
 
+    var TITLE_OVERRIDES = {
+      'gigi':               { show: 'This is Everything: Gigi Gorgeous',                                       detail: 'Documentary Feature \u2022 Trailer' },
+      'rhscot':             { show: 'Ryan Hansen Solves Crimes on Television',                                  detail: 'Season 1 \u2022 Trailer' },
+      'thewomaninthehouse': { show: 'The Woman in the House Across the<br>Street from the Girl in the Window', detail: 'Season 1 \u2022 Trailer' },
+    };
+
     function parseTitle(filename) {
-      var base  = filename.replace(/\.[^.]+$/, '');
+      var base      = filename.replace(/\.[^.]+$/, '');
+      var baseLower = base.toLowerCase();
+
+      // Special-case overrides (case-insensitive key match)
+      for (var key in TITLE_OVERRIDES) {
+        if (baseLower.indexOf(key) !== -1) return TITLE_OVERRIDES[key];
+      }
+
       var parts = base.split('-');
       // Format: NN-Studio-SeriesTitle-SN-Type
-      if (parts.length < 4) return base.replace(/-/g, ' ');
+      if (parts.length < 4) return { show: base.replace(/-/g, ' '), detail: '' };
       var typePart   = parts[parts.length - 1];
       var seasonPart = parts[parts.length - 2];
       var titleParts = parts.slice(2, parts.length - 2);
-      // Join and split CamelCase (lowercase→uppercase boundary)
-      var raw = titleParts.join(' ').replace(/([a-z])([A-Z])/g, '$1 $2');
-      // Extract embedded prepositions/conjunctions (e.g. "Graceand" → "Grace and")
-      raw = raw.replace(/([A-Z][a-z]+)(and|or|in|to|of|at|by)(\s|$)/g, '$1 $2 ');
+
+      // Capitalize type part (trailer → Trailer, teaser → Teaser)
+      typePart = typePart.charAt(0).toUpperCase() + typePart.slice(1);
+
+      // Join title parts
+      var rawJoined = titleParts.join(' ');
+      var raw = rawJoined;
+
+      if (rawJoined === rawJoined.toLowerCase()) {
+        // All-lowercase filename (YouTube style) — title-case each word
+        raw = raw.replace(/\b\w/g, function (c) { return c.toUpperCase(); });
+      } else {
+        // CamelCase filename (Netflix style) — split on lowercase→uppercase boundary
+        raw = raw.replace(/([a-z])([A-Z])/g, '$1 $2');
+        // Extract embedded prepositions/conjunctions (e.g. "Graceand" → "Grace and")
+        raw = raw.replace(/([A-Z][a-z]+)(and|or|in|to|of|at|by)(\s|$)/g, '$1 $2 ');
+      }
       raw = raw.replace(/\s+/g, ' ').trim();
-      // S1 → Season 1, S7B → Season 7B
+
+      // S1/s1 → Season 1, S7B → Season 7B
       var season = seasonPart.replace(/^[Ss](\d+\w*)$/, 'Season $1');
-      return raw + ' ' + season + ' \u2013 ' + typePart;
+
+      return { show: raw, detail: season + ' \u2022 ' + typePart };
     }
 
     function loadManifest(c) {
@@ -159,7 +199,8 @@
           VIDEOS[c] = files
             .filter(function (f) { return /\.(mp4|mov|webm)$/i.test(f); })
             .map(function (f) {
-              return { src: BASE + c + '/' + f, title: parseTitle(f) };
+              var t = parseTitle(f);
+              return { src: BASE + c + '/' + f, show: t.show, detail: t.detail };
             });
           fetched[c] = true;
         })
@@ -227,18 +268,12 @@
         dotRow.appendChild(dot);
       });
 
-      if (labelEl && list[index]) {
-        labelEl.textContent = list[index].title;
-        labelEl.style.fontSize = '';
-        requestAnimationFrame(function () {
-          var labelPill = labelEl.parentElement;
-          var availW = labelPill ? labelPill.offsetWidth - 28 : 0;
-          var labelW = labelEl.scrollWidth;
-          if (availW > 0 && labelW > availW) {
-            var base = parseFloat(getComputedStyle(labelEl).fontSize);
-            labelEl.style.fontSize = Math.floor(base * availW / labelW) + 'px';
-          }
-        });
+      if (titleEl && list[index]) {
+        var item = list[index];
+        titleEl.innerHTML =
+          '<span class="avc-title-show">' + item.show + '</span>' +
+          (item.detail ? '<span class="avc-title-detail">' + item.detail + '</span>' : '');
+        if (titleRow) titleRow.hidden = false;
       }
     }
 
@@ -252,6 +287,8 @@
       if (clickArea) clickArea.hidden = !has;
 
       if (roleEl) { roleEl.innerHTML = ROLES[company]; }
+      if (brandEl) { brandEl.textContent = BRAND_NAMES[company] || company; }
+      if (brandRow) { brandRow.hidden = false; }
 
       if (has) {
         setVideo(list[index].src);
@@ -268,6 +305,12 @@
       loadManifest(c).then(render);
     }
 
+    function movePill(tab) {
+      if (!pillThumb || !tab) return;
+      pillThumb.style.left  = tab.offsetLeft + 'px';
+      pillThumb.style.width = tab.offsetWidth + 'px';
+    }
+
     tabs.forEach(function (tab) {
       tab.addEventListener('click', function () {
         tabs.forEach(function (t) {
@@ -276,6 +319,7 @@
         });
         tab.classList.add('active');
         tab.setAttribute('aria-selected', 'true');
+        movePill(tab);
         switchTo(tab.dataset.company);
       });
     });
@@ -285,8 +329,11 @@
       if (e.key === 'ArrowRight' && index < vids().length - 1) { index++; render(); }
     });
 
-    // Initial load
+    // Initial load + pill position
     loadManifest('netflix').then(render);
+    requestAnimationFrame(function () {
+      movePill(document.querySelector('.av-carousel .kac-tab.active'));
+    });
 
   }());
   </script>

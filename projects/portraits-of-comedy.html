@@ -56,7 +56,8 @@
         <a href="../categories/integrated-marketing.html" class="project-back">
           <span class="arrow" aria-hidden="true">←</span> Integrated Marketing
         </a>
-        <h1 class="project-title">Netflix is a Joke Fest 2024 — Portraits of Comedy</h1>
+        <h1 class="project-title">Netflix is a Joke Fest — Portraits of&nbsp;Comedy</h1>
+        <p class="project-subtitle" style="color: #000;">Uniting 25 comedy powerhouses for a colorful campaign that sticks.</p>
       </header>
 
       <div class="project-body">
@@ -64,17 +65,21 @@
         <!-- Left: info -->
         <div class="project-info">
           <div class="project-description">
-            <p>The Netflix is a Joke 2024 Talent Campaign evolved the event's identity into a full visual universe — bold, irreverent, playful and deeply character-driven. Using the festival's vibrant palette and layered 'sticker' design system, we built a world where every element felt alive with personality and wit.</p>
+            <p>The <strong>Netflix is a Joke</strong> 2024 Talent Campaign evolved the event's identity into a full visual universe — bold, irreverent, playful and deeply character-driven. Using the festival's vibrant palette and layered 'sticker' design system, we built a world where every element felt alive with personality and wit.</p>
             <p>Partnering with SNL photographer Mary Ellen Matthews, we captured 25 of the world's top comedians through cinematic portraits that blended humor, personality, and design in equal measure. Together, the photography and creative direction brought the brand world to life — uniting an unprecedented roster of talent under the unmistakable spirit and visual language of the largest comedy festival in the world.</p>
           </div>
           <dl class="project-meta">
+            <div class="meta-row">
+              <dt class="meta-key">Brand</dt>
+              <dd class="meta-value">Netflix is a Joke Fest • Netflix</dd>
+            </div>
             <div class="meta-row">
               <dt class="meta-key">Role</dt>
               <dd class="meta-value">Executive Creative Director<br>Designer</dd>
             </div>
             <div class="meta-row">
               <dt class="meta-key">Date</dt>
-              <dd class="meta-value">May 2024</dd>
+              <dd class="meta-value">2024</dd>
             </div>
             <div class="meta-row">
               <dt class="meta-key">Partners</dt>
@@ -107,13 +112,13 @@
                   <span class="award-category">Mixed Campaign</span>
                 </div>
                 <div class="clio-statues" aria-hidden="true">
-                  <span class="clio-statue-wrap clio-statue-wrap--silver">
+                  <span class="clio-statue-wrap clio-statue-wrap">
                     <img class="clio-statue" src="https://framerusercontent.com/images/Xm6WxVqOlG3X9Oae8TSZgQ6r1W0.png" alt="">
                   </span>
-                  <span class="clio-statue-wrap clio-statue-wrap--silver">
+                  <span class="clio-statue-wrap clio-statue-wrap">
                     <img class="clio-statue" src="https://framerusercontent.com/images/Xm6WxVqOlG3X9Oae8TSZgQ6r1W0.png" alt="">
                   </span>
-                  <span class="clio-statue-wrap clio-statue-wrap--bronze">
+                  <span class="clio-statue-wrap clio-statue-wrap">
                     <img class="clio-statue" src="https://framerusercontent.com/images/Xm6WxVqOlG3X9Oae8TSZgQ6r1W0.png" alt="">
                   </span>
                 </div>
@@ -126,17 +131,6 @@
         <div class="project-images">
 
           <div class="poc-carousel">
-
-            <div class="kac-tabs" role="tablist" aria-label="Campaign images">
-              <button class="kac-tab active" data-set="all" role="tab" aria-selected="true">Portraits of Comedy</button>
-              <div class="poc-controls">
-                <button class="poc-expand" aria-label="Expand to full view">
-                  <svg width="11" height="11" viewBox="0 0 11 11" fill="none" aria-hidden="true">
-                    <path d="M1 3.5V1H3.5M7.5 1H10V3.5M10 7.5V10H7.5M3.5 10H1V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </button>
-              </div>
-            </div>
 
             <div class="kac-stage kac-stage--wide">
               <img class="kac-img" src="" alt="" hidden>
@@ -221,7 +215,6 @@
     var nextBtn      = document.querySelector('.poc-carousel .av-nav-next');
     var controlsEl   = document.querySelector('.poc-carousel .av-controls');
     var dotTrack     = document.querySelector('.poc-carousel .av-dot-track');
-    var expandBtn    = document.querySelector('.poc-expand');
     var overlay      = document.getElementById('poc-overlay');
     var overlayImg   = document.querySelector('.poc-overlay-img');
     var overlayClose = document.querySelector('.poc-overlay-close');
@@ -289,12 +282,6 @@
       overlayPrev.disabled = index === 0;
       overlayNext.disabled = index === IMAGES.length - 1;
     }
-
-    expandBtn.addEventListener('click', function () {
-      overlay.hidden = false;
-      document.body.style.overflow = 'hidden';
-      syncOverlay();
-    });
 
     overlayClose.addEventListener('click', function () {
       overlay.hidden = true;

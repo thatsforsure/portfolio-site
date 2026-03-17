@@ -48,13 +48,16 @@
         <div class="project-info">
           <div class="project-description">
             <p>No single piece of creative makes a campaign successful. But one of the most visible—and enduring—is the key art. It's often the first expression of a campaign and the most recognizable, lasting visual representation of a series or film.</p>
-            <p>I've brought 100+ title brands to market across Netflix, YouTube, and HBO—leading everything from establishing visual identities and creative guidelines for new properties to fully integrated global marketing campaigns.</p>
-            <p>Explore creative highlights from selected campaigns →</p>
+            <p>I've launched 100+ brands across Netflix, YouTube, and HBO—establishing visual identity, brand strategy, and global advertising campaigns.</p>
           </div>
           <dl class="project-meta">
             <div class="meta-row">
               <dt class="meta-key">Role</dt>
               <dd class="meta-value" id="kac-role">Executive Creative Director<br>Netflix Global Creative Marketing</dd>
+            </div>
+            <div class="meta-row" id="kac-partners-row" hidden>
+              <dt class="meta-key">Partners</dt>
+              <dd class="meta-value partner-list" id="kac-partners"></dd>
             </div>
           </dl>
         </div>
@@ -63,15 +66,22 @@
 
           <div class="key-art-carousel">
 
-            <div class="kac-tabs" role="tablist" aria-label="Select studio">
+            <div class="kac-tabs pill-tabs" role="tablist" aria-label="Select studio">
+              <span class="kac-pill-thumb" aria-hidden="true"></span>
               <button class="kac-tab active" data-company="netflix" role="tab" aria-selected="true">Netflix</button>
               <button class="kac-tab" data-company="youtube" role="tab" aria-selected="false">YouTube</button>
               <button class="kac-tab" data-company="hbo" role="tab" aria-selected="false">HBO</button>
             </div>
 
-            <div class="kac-stage">
-              <img class="kac-img" src="" alt="" hidden>
-              <div class="kac-empty">No images yet</div>
+            <div class="kac-stage-outer">
+              <div class="kac-stage">
+                <img class="kac-img" src="" alt="" hidden>
+                <div class="kac-empty">No images yet</div>
+              </div>
+              <div class="kac-annotation" hidden aria-hidden="true">
+                <span class="kac-annotation-text">that's me lol</span>
+                <span class="kac-annotation-arrow">→</span>
+              </div>
             </div>
 
             <div class="av-controls" hidden>
@@ -174,6 +184,13 @@
     };
 
     var COLORS = { netflix: '#B20710', youtube: '#FF0000', hbo: '#9e86ff' };
+    var PARTNERS = {
+      'Netflix-EmilyinParis-S3-Emily.webp': [
+        { name: 'Art Machine',    role: 'creative'     },
+        { name: 'Carin Backoff',  role: 'photography'  },
+        { name: 'Rosco',          role: 'production'   }
+      ]
+    };
     var ROLES  = {
       netflix: 'Executive Creative Director<br>Netflix Global Creative Marketing',
       youtube: 'Product Marketing Lead<br>YouTube Premium',
@@ -182,15 +199,39 @@
     // ─────────────────────────────────────────────────────────────
 
     var tabs       = document.querySelectorAll('.kac-tab');
+    var pillThumb  = document.querySelector('.kac-pill-thumb');
     var img        = document.querySelector('.kac-img');
     var empty      = document.querySelector('.kac-empty');
     var prevBtn    = document.querySelector('.av-nav-prev');
     var nextBtn    = document.querySelector('.av-nav-next');
     var controlsEl = document.querySelector('.av-controls');
     var dotTrack   = document.querySelector('.av-dot-track');
-    var roleEl     = document.getElementById('kac-role');
+    var roleEl        = document.getElementById('kac-role');
+    var partnersEl    = document.getElementById('kac-partners');
+    var partnersRowEl = document.getElementById('kac-partners-row');
+    var annotationEl  = document.querySelector('.kac-annotation');
+    var stageEl       = document.querySelector('.kac-stage');
+
+    // Position annotation just outside the rendered image's left edge,
+    // accounting for object-fit: contain letterboxing when max-height constrains the stage.
+    function positionAnnotation() {
+      if (!annotationEl || !stageEl || annotationEl.hidden) return;
+      var w = stageEl.offsetWidth;
+      var h = stageEl.offsetHeight;
+      var imgRatio = 27 / 40;
+      var leftInset = (w / h) > imgRatio ? (w - h * imgRatio) / 2 : 0;
+      annotationEl.style.right = (w - leftInset + 4) + 'px';
+    }
+
+    window.addEventListener('resize', positionAnnotation);
 
     if (!img) return;
+
+    function movePillThumb(tab) {
+      if (!pillThumb) return;
+      pillThumb.style.left  = tab.offsetLeft + 'px';
+      pillThumb.style.width = tab.offsetWidth + 'px';
+    }
 
     var company = 'netflix';
     var index   = 0;
@@ -237,10 +278,28 @@
       if (roleEl) { roleEl.innerHTML = ROLES[company]; }
 
       if (has) {
-        setImage(list[index], company + ' key art ' + (index + 1));
+        var src = list[index];
+        setImage(src, company + ' key art ' + (index + 1));
         if (prevBtn) prevBtn.disabled = index === 0;
         if (nextBtn) nextBtn.disabled = index === list.length - 1;
         renderDotTrack();
+
+        var filename = src.split('/').pop();
+        var credits  = PARTNERS[filename];
+        if (partnersEl) {
+          partnersEl.innerHTML = credits
+            ? credits.map(function (p) {
+                return '<div class="partner-row"><span>' + p.name + '</span>' +
+                       (p.role ? '<span class="partner-role">' + p.role + '</span>' : '') +
+                       '</div>';
+              }).join('')
+            : '';
+        }
+        if (partnersRowEl) { partnersRowEl.hidden = !credits; }
+        if (annotationEl) {
+          annotationEl.hidden = !(company === 'netflix' && index === 13);
+          positionAnnotation();
+        }
       }
     }
 
@@ -254,6 +313,7 @@
         tab.setAttribute('aria-selected', 'true');
         company = tab.dataset.company;
         index   = 0;
+        movePillThumb(tab);
         render();
       });
     });
@@ -281,6 +341,7 @@
     });
 
     render();
+    movePillThumb(document.querySelector('.kac-tab.active'));
 
   }());
   </script>
