@@ -43,9 +43,8 @@
 
         <div class="project-info">
           <div class="project-description">
-            <p>From title sequences to trailers, launch spots to social content — A/V direction has been central to my creative marketing practice across Netflix, YouTube, HBO, and ABC.</p>
-            <p>Each project required a distinct visual and tonal language, calibrated to the story being told and the platform it lived on.</p>
-            <p>Browse by studio using the toggles below.</p>
+            <p>A/V has been a constant through every stage of my career—from my early beginnings writing and editing local news promos at ABC to art directing hero assets for global campaigns across Netflix, YouTube, and HBO.</p>
+            <p>This selection of work captures that progression through trailers, teasers, and TV/social assets.</p>
           </div>
           <dl class="project-meta">
             <div class="meta-row" id="avc-brand-row" hidden>
@@ -150,6 +149,12 @@
       'gigi':               { show: 'This is Everything: Gigi Gorgeous',                                       detail: 'Documentary Feature \u2022 Trailer' },
       'rhscot':             { show: 'Ryan Hansen Solves Crimes on Television',                                  detail: 'Season 1 \u2022 Trailer' },
       'thewomaninthehouse': { show: 'The Woman in the House Across the<br>Street from the Girl in the Window', detail: 'Season 1 \u2022 Trailer' },
+      'entourage':          { show: 'Entourage (film)',                                                          detail: 'Teaser' },
+      'thonres':            { show: 'Game of Thrones',                                                          detail: 'Season 4 \u2022 Promo' },
+      'notamicrophone':     { show: 'Not a Microphone',                                                         detail: 'Promo :30' },
+      'jimmykimmel':        { show: 'Jimmy Kimmel x Nightline',                                                  detail: 'Promo :30' },
+      'bigboard':           { show: 'The Big Board',                                                             detail: 'Promo :30' },
+      'pennstate':          { show: '6abc x Penn State THON',                                                    detail: 'Promo :30' },
     };
 
     function parseTitle(filename) {
@@ -162,11 +167,20 @@
       }
 
       var parts = base.split('-');
-      // Format: NN-Studio-SeriesTitle-SN-Type
+      // Format: NN-Studio-SeriesTitle-SN-Type  (5+ parts)
+      //         NN-Studio-SeriesTitle-Type       (4 parts, no season)
       if (parts.length < 4) return { show: base.replace(/-/g, ' '), detail: '' };
-      var typePart   = parts[parts.length - 1];
-      var seasonPart = parts[parts.length - 2];
-      var titleParts = parts.slice(2, parts.length - 2);
+      var typePart, seasonPart, titleParts;
+      if (parts.length === 4) {
+        // No season field
+        typePart   = parts[3];
+        seasonPart = '';
+        titleParts = parts.slice(2, 3);
+      } else {
+        typePart   = parts[parts.length - 1];
+        seasonPart = parts[parts.length - 2];
+        titleParts = parts.slice(2, parts.length - 2);
+      }
 
       // Capitalize type part (trailer → Trailer, teaser → Teaser)
       typePart = typePart.charAt(0).toUpperCase() + typePart.slice(1);
@@ -187,9 +201,9 @@
       raw = raw.replace(/\s+/g, ' ').trim();
 
       // S1/s1 → Season 1, S7B → Season 7B
-      var season = seasonPart.replace(/^[Ss](\d+\w*)$/, 'Season $1');
+      var season = seasonPart ? seasonPart.replace(/^[Ss](\d+\w*)$/, 'Season $1') : '';
 
-      return { show: raw, detail: season + ' \u2022 ' + typePart };
+      return { show: raw, detail: (season ? season + ' \u2022 ' : '') + typePart };
     }
 
     function loadManifest(c) {
