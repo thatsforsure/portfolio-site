@@ -48,30 +48,73 @@
           </div>
           <dl class="project-meta">
             <div class="meta-row">
+              <dt class="meta-key">Brand</dt>
+              <dd class="meta-value">WPVI-TV 6abc</dd>
+            </div>
+            <div class="meta-row" id="avc-title-row" hidden>
+              <dt class="meta-key">Title</dt>
+              <dd class="meta-value" id="avc-title" aria-live="polite"></dd>
+            </div>
+            <div class="meta-row">
               <dt class="meta-key">Role</dt>
-              <dd class="meta-value">Creative Marketing Producer</dd>
+              <dd class="meta-value">Writer • Producer • Editor</dd>
             </div>
             <div class="meta-row">
               <dt class="meta-key">Company</dt>
               <dd class="meta-value">WPVI-TV / Disney ABC</dd>
             </div>
+            <div class="meta-row" id="award-row-microphone" hidden>
+              <dt class="meta-key">Awards</dt>
+              <dd class="meta-value award-lines">
+                <div class="award-text">
+                  <span class="award-winner">2013 ABC Alpha Award</span>
+                  <span class="award-category">Best News Image</span>
+                  <span class="award-category">This is Not a Microphone</span>
+                </div>
+                <div class="clio-statues" aria-hidden="true">
+                  <span class="clio-statue-wrap" style="height: 42px;">
+                    <img class="clio-statue" src="../images/about/about-awards-alpha.webp" alt="">
+                  </span>
+                </div>
+              </dd>
+            </div>
+            <div class="meta-row" id="award-row-bigboard" hidden>
+              <dt class="meta-key">Awards</dt>
+              <dd class="meta-value award-lines">
+                <div class="award-text">
+                  <span class="award-winner">2012 ABC Alpha Award</span>
+                  <span class="award-category">Excellence in Creative</span>
+                  <span class="award-category">The Big Board</span>
+                </div>
+                <div class="clio-statues" aria-hidden="true">
+                  <span class="clio-statue-wrap" style="height: 42px;">
+                    <img class="clio-statue" src="../images/about/about-awards-alpha.webp" alt="">
+                  </span>
+                </div>
+              </dd>
+            </div>
           </dl>
         </div>
 
         <div class="project-images">
-          <p class="video-label"><strong>This is Not a Microphone :30</strong><span class="video-award">ABC Alpha Award Winner — Best News Image</span></p>
-          <div class="video-embed">
-            <iframe src="https://player.vimeo.com/video/1134700131?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" title="Brand Image - This is Not a Microphone"></iframe>
-          </div>
+          <div class="av-carousel">
 
-          <p class="video-label"><strong>6abc x Penn State THON 2011 :30</strong></p>
-          <div class="video-embed">
-            <iframe src="https://player.vimeo.com/video/1134700232?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" title="6abc x Penn State Thon 2011"></iframe>
-          </div>
+            <div class="av-stage">
+              <video class="av-video" controls playsinline hidden></video>
+              <div class="av-click-area" hidden></div>
+              <div class="kac-empty">No videos yet</div>
+            </div>
 
-          <p class="video-label"><strong>The Big Board — Vote 2013 :30</strong></p>
-          <div class="video-embed">
-            <iframe src="https://player.vimeo.com/video/1134700205?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" title="The Big Board - Vote 2013"></iframe>
+            <div class="av-controls" hidden>
+              <div class="av-controls-top">
+                <button class="av-nav-btn av-nav-prev" aria-label="Previous video">←</button>
+                <div class="av-dot-track">
+                  <div class="av-dot-row" aria-hidden="true"></div>
+                </div>
+                <button class="av-nav-btn av-nav-next" aria-label="Next video">→</button>
+              </div>
+            </div>
+
           </div>
         </div>
 
@@ -86,5 +129,129 @@
   </footer>
 
   <script src="../js/main.js"></script>
+  <script>
+  (function () {
+    var BASE = '../images/portfolio/art-direction/av-motion/abc/';
+
+    var videos     = [];
+    var index      = 0;
+
+    var titleEl         = document.getElementById('avc-title');
+    var titleRow        = document.getElementById('avc-title-row');
+    var awardMicrophone = document.getElementById('award-row-microphone');
+    var awardBigboard   = document.getElementById('award-row-bigboard');
+    var video      = document.querySelector('.av-video');
+    var clickArea  = document.querySelector('.av-click-area');
+    var controlsEl = document.querySelector('.av-controls');
+    var dotTrack   = document.querySelector('.av-dot-track');
+    var prevBtn    = document.querySelector('.av-nav-prev');
+    var nextBtn    = document.querySelector('.av-nav-next');
+    var empty      = document.querySelector('.kac-empty');
+
+    if (!video) return;
+
+    var TITLE_OVERRIDES = {
+      'notamicrophone': { show: 'This is Not a Microphone', detail: 'Promo :30 \u00b7 2013' },
+      'jimmykimmel':    { show: 'Jimmy Kimmel x Nightline',  detail: 'Promo :30 \u00b7 2013' },
+      'bigboard':       { show: 'The Big Board',             detail: 'Promo :30 \u00b7 2012' },
+      'pennstate':      { show: '6abc x Penn State THON',    detail: 'Promo :30 \u00b7 2012' },
+    };
+
+    function parseTitle(filename) {
+      var base = filename.replace(/\.[^.]+$/, '');
+      var baseLower = base.toLowerCase();
+      for (var key in TITLE_OVERRIDES) {
+        if (baseLower.indexOf(key) !== -1) return TITLE_OVERRIDES[key];
+      }
+      return { show: base.replace(/-/g, ' '), detail: '' };
+    }
+
+    function renderDotTrack() {
+      if (!dotTrack) return;
+      var dotRow = dotTrack.querySelector('.av-dot-row');
+      if (!dotRow) return;
+      dotRow.innerHTML = '';
+      videos.forEach(function (item, i) {
+        var dot = document.createElement('span');
+        dot.className = 'av-dot' +
+          (i < index   ? ' is-past'   : '') +
+          (i === index ? ' is-active' : '');
+        dot.addEventListener('click', function () {
+          if (i !== index) { index = i; render(); }
+        });
+        dotRow.appendChild(dot);
+      });
+      var item = videos[index];
+      if (item && titleEl) {
+        titleEl.innerHTML =
+          '<span class="avc-title-show">'   + item.show   + '</span>' +
+          (item.detail ? '<span class="avc-title-detail">' + item.detail + '</span>' : '');
+        if (titleRow) titleRow.hidden = false;
+      }
+
+      // Show award only for the video that won one (index 0 = Microphone, index 1 = Big Board)
+      if (awardMicrophone) awardMicrophone.hidden = (index !== 0);
+      if (awardBigboard)   awardBigboard.hidden   = (index !== 1);
+    }
+
+    function render() {
+      if (!videos.length) {
+        empty.hidden = false;
+        video.hidden = true;
+        if (clickArea)  clickArea.hidden  = true;
+        if (controlsEl) controlsEl.hidden = true;
+        return;
+      }
+      empty.hidden = true;
+      video.hidden = false;
+      if (clickArea)  clickArea.hidden  = false;
+      if (controlsEl) controlsEl.hidden = false;
+      video.pause();
+      video.src = videos[index].src;
+      video.load();
+      video.play().catch(function () {});
+      renderDotTrack();
+    }
+
+    video.addEventListener('timeupdate', function () {
+      if (!video.duration) return;
+      var pct = (video.currentTime / video.duration * 100).toFixed(2) + '%';
+      var activeDot = dotTrack ? dotTrack.querySelector('.av-dot.is-active') : null;
+      if (activeDot) activeDot.style.setProperty('--progress', pct);
+    });
+
+    video.addEventListener('ended', function () {
+      if (index < videos.length - 1) { index++; render(); video.play(); }
+    });
+
+    if (prevBtn) prevBtn.addEventListener('click', function () {
+      if (index > 0) { index--; render(); }
+    });
+    if (nextBtn) nextBtn.addEventListener('click', function () {
+      if (index < videos.length - 1) { index++; render(); }
+    });
+
+    var audioUnlocked = false;
+    if (clickArea) {
+      clickArea.addEventListener('click', function () {
+        if (!audioUnlocked) { video.muted = false; video.volume = 1; audioUnlocked = true; }
+        if (video.paused) video.play(); else video.pause();
+      });
+    }
+
+    fetch(BASE + 'manifest.json')
+      .then(function (r) { return r.ok ? r.json() : []; })
+      .then(function (files) {
+        videos = files
+          .filter(function (f) { return /\.(mp4|mov|webm)$/i.test(f); })
+          .map(function (f) {
+            var t = parseTitle(f);
+            return { src: BASE + f, show: t.show, detail: t.detail };
+          });
+        render();
+      })
+      .catch(function () {});
+  })();
+  </script>
 </body>
 </html>

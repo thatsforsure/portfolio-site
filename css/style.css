@@ -789,6 +789,21 @@ body.is-splash {
   color: var(--black);
   font-style: italic;
 }
+.para-accent {
+  border-left: 1px solid var(--gray-300);
+  padding-left: var(--s4);
+  margin-left: calc(-1 * var(--s4));
+}
+.pull-quote--subtle {
+  border-left: 1px solid var(--gray-300);
+  padding: var(--s3) var(--s4);
+  margin: var(--s3) 0;
+}
+.pull-quote--subtle blockquote {
+  font-size: var(--t14);
+  color: var(--gray-600);
+  font-weight: 400;
+}
 .pull-quote cite {
   display: block;
   margin-top: var(--s4);
@@ -1004,6 +1019,85 @@ body.is-splash {
 
 .eip-pill-row .kac-tab:hover  { opacity: 0.7; }
 .eip-pill-row .kac-tab.active { opacity: 1; }
+
+/* Impulse video wrap + play button */
+.imp-vid-wrap {
+  position: relative;
+  background: #000;
+  line-height: 0;
+}
+.imp-vid-wrap video {
+  width: 100%;
+  display: block;
+  aspect-ratio: 16 / 9;
+}
+.imp-play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.88);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease, transform 0.15s ease;
+  z-index: 2;
+}
+.imp-play-btn:hover {
+  background: rgba(255, 255, 255, 1);
+  transform: translate(-50%, -50%) scale(1.08);
+}
+.imp-play-btn::before {
+  content: '';
+  display: block;
+  border-style: solid;
+  border-width: 6px 0 6px 10px;
+  border-color: transparent transparent transparent #000;
+  margin-left: 2px;
+}
+
+/* Impulse Pre-Launch editorial layout */
+.imp-pl-section {
+  margin-bottom: var(--s10);
+}
+.imp-pl-section:last-child {
+  margin-bottom: 0;
+}
+.imp-pl-heading {
+  font-size: var(--t13);
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  color: var(--black);
+  margin: 0 0 var(--s4);
+  padding-bottom: var(--s2);
+  border-bottom: 1px solid var(--gray-200);
+}
+.imp-pl-hero {
+  margin-bottom: var(--s3);
+}
+.imp-pl-hero .imp-pl-caption {
+  margin-top: var(--s1);
+}
+.imp-pl-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s3);
+}
+.imp-pl-grid-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+.imp-pl-caption {
+  font-size: var(--t11);
+  color: var(--gray-500);
+  margin: var(--s1) 0 0;
+  font-weight: 400;
+}
+
 
 /* Video sub-nav: text-only, color-based active state */
 .eip-vtab-row .kac-tab {
@@ -1420,6 +1514,63 @@ body.is-splash {
   color: var(--gray-400);
   font-size: var(--t14);
 }
+
+/* Autoplay inline video with click-to-expand */
+.niaj-vid2-wrap {
+  position: relative;
+  width: 100%;
+  cursor: pointer;
+}
+.niaj-vid2 {
+  width: 100%;
+  display: block;
+  background: #000;
+  pointer-events: none;
+}
+.niaj-vid2-expand {
+  position: absolute;
+  inset: 0;
+}
+
+/* Lightbox */
+.niaj-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.niaj-lightbox[hidden] { display: none; }
+.niaj-lightbox-bg {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.88);
+}
+.niaj-lightbox-video {
+  position: relative;
+  z-index: 1;
+  max-width: 90vw;
+  max-height: 90vh;
+  width: auto;
+  height: auto;
+  display: block;
+}
+.niaj-lightbox-close {
+  position: absolute;
+  top: var(--s5);
+  right: var(--s5);
+  z-index: 2;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.15s ease;
+}
+.niaj-lightbox-close:hover { opacity: 1; }
 
 /* ----------------------------------------------------------------
    14. VIDEO EMBED

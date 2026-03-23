@@ -98,7 +98,12 @@
         <div class="project-images">
 
           <div class="s4-video-stage">
-            <video class="s4-video" src="../images/portfolio/integrated-marketing/niajfest-gtm/video/niajfest-gtm-video-01.mp4" controls playsinline preload="metadata"></video>
+            <video class="s4-video" src="../images/portfolio/integrated-marketing/niajfest-gtm/video/niajfest-gtm-video-01.mp4" poster="../images/portfolio/integrated-marketing/niajfest-gtm/niajfest-gtm-video-01-thumb.webp" controls playsinline preload="metadata"></video>
+          </div>
+
+          <div class="niaj-vid2-wrap">
+            <video class="niaj-vid2" src="../images/portfolio/integrated-marketing/niajfest-gtm/video/niajfest-gtm-video-02.mp4" muted autoplay playsinline loop preload="metadata"></video>
+            <div class="niaj-vid2-expand" aria-label="Expand video" title="Click to expand"></div>
           </div>
 
           <div class="project-images" data-gallery-path="../images/portfolio/integrated-marketing/niajfest-gtm/">
@@ -116,6 +121,41 @@
   </div>
   </footer>
 
+  <!-- Video lightbox -->
+  <div class="niaj-lightbox" id="niajLightbox" hidden>
+    <div class="niaj-lightbox-bg" id="niajLightboxBg"></div>
+    <video class="niaj-lightbox-video" id="niajLightboxVideo" controls playsinline></video>
+    <button class="niaj-lightbox-close" id="niajLightboxClose" aria-label="Close">&times;</button>
+  </div>
+
   <script src="../js/main.js"></script>
+  <script>
+  (function () {
+    var wrap    = document.querySelector('.niaj-vid2-wrap');
+    var lb      = document.getElementById('niajLightbox');
+    var lbVideo = document.getElementById('niajLightboxVideo');
+    var lbBg    = document.getElementById('niajLightboxBg');
+    var lbClose = document.getElementById('niajLightboxClose');
+    var src     = '../images/portfolio/integrated-marketing/niajfest-gtm/video/niajfest-gtm-video-02.mp4';
+
+    function open() {
+      lbVideo.src = src;
+      lb.hidden = false;
+      lbVideo.play().catch(function () {});
+    }
+    function close() {
+      lb.hidden = true;
+      lbVideo.pause();
+      lbVideo.src = '';
+    }
+
+    if (wrap) wrap.addEventListener('click', open);
+    if (lbBg) lbBg.addEventListener('click', close);
+    if (lbClose) lbClose.addEventListener('click', close);
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !lb.hidden) close();
+    });
+  })();
+  </script>
 </body>
 </html>
