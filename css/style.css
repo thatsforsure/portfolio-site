@@ -1075,7 +1075,7 @@ body.is-splash {
 
 /* Impulse Pre-Launch editorial layout */
 .imp-pl-section {
-  margin-bottom: var(--s10);
+  margin-bottom: 1.25rem;
 }
 .imp-pl-section:last-child {
   margin-bottom: 0;
@@ -1088,6 +1088,12 @@ body.is-splash {
   margin: 0 0 var(--s4);
   padding-bottom: var(--s2);
   border-bottom: 1px solid var(--gray-200);
+}
+.imp-pl-intro {
+  font-size: var(--t12);
+  color: var(--gray-600);
+  line-height: 1.55;
+  margin: 0 0 var(--s4);
 }
 .imp-pl-hero {
   margin-bottom: var(--s3);

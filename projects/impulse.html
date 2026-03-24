@@ -43,8 +43,6 @@
           <div class="project-description" id="impCopyDefault">
             <p><strong>Impulse</strong> was a brand new series and YouTube's largest content bet of the year. But unlike earlier Originals anchored to built-in creator audiences, this title had no audience to rely on. So we made the world the entry point, using tone, story, and the pedigree of Doug Liman to pull people in.</p>
             <p>We introduced Impulse by building Reston as a place you could observe, question, and slowly piece together. A steady stream of YouTube content blurred the line between normal and not quite right, inviting viewers to look closer and start forming their own theories.</p>
-            <p><strong>Town of Reston</strong> presented the town as it wanted to be seen: quiet, safe, familiar. Beneath those assurances, the imagery told a different story, with fleeting glimpses of violence, secrecy, and instability hinting at something just under the surface.</p>
-            <p><strong>People of Reston</strong> shifted the focus from place to perspective. Through fragmented, emotionally charged testimonials, characters spoke around the truth instead of directly at it, revealing tension, suspicion, and buried secrets without ever fully explaining them.</p>
             <p>Together, these series established tone before plot, turning a small town into a question mark and its people into pieces of a mystery the audience wanted to solve.</p>
             <p>As intrigue built, the campaign began to sharpen, transitioning from atmosphere to narrative through a teaser and trailer that introduced Henry, her power, and the consequences of not understanding it.</p>
             <p>The trailer was nominated for a 2018 Golden Trailer Award, but as usual, we lost to Stranger Things.</p>
@@ -83,6 +81,10 @@
                   <span>Trailer Park</span>
                   <span class="partner-role">A/V Agency</span>
                 </div>
+                <div class="partner-row">
+                  <span>Doug Liman</span>
+                  <span class="partner-role">Executive Producer</span>
+                </div>
               </dd>
             </div>
           </dl>
@@ -95,8 +97,8 @@
             <!-- Section selector pill -->
             <div class="eip-pill-row imp-pill-row" role="tablist" aria-label="Select section">
               <span class="kac-pill-thumb" aria-hidden="true"></span>
-              <button class="kac-tab active" data-imp="pre-launch" role="tab" aria-selected="true">World Building</button>
-              <button class="kac-tab" data-imp="launch" role="tab" aria-selected="false">Launch Stunt</button>
+              <button class="kac-tab active" data-imp="pre-launch" role="tab" aria-selected="true">Narrative</button>
+              <button class="kac-tab" data-imp="launch" role="tab" aria-selected="false">High-Impact</button>
               <button class="kac-tab" data-imp="stunt" role="tab" aria-selected="false">Influencer Stunt</button>
             </div>
 
@@ -125,6 +127,7 @@
 
               <div class="imp-pl-section">
                 <h3 class="imp-pl-heading">Town of Reston</h3>
+                <p class="imp-pl-intro">Presented the town as it wanted to be seen: quiet, safe, familiar. Beneath those assurances, the imagery told a different story, with fleeting glimpses of violence, secrecy, and instability hinting at something just under the surface.</p>
                 <div class="imp-pl-hero">
                   <div class="imp-vid-wrap">
                     <video src="../images/portfolio/integrated-marketing/impulse/video/town-of-reston/01-impulse-townofreston-howfarwouldyougo.mp4" poster="../images/portfolio/integrated-marketing/impulse/video/town-of-reston/01-impulse-townofreston-howfarwouldyougo.webp" playsinline preload="metadata"></video>
@@ -166,6 +169,7 @@
 
               <div class="imp-pl-section">
                 <h3 class="imp-pl-heading">People of Reston</h3>
+                <p class="imp-pl-intro">Shifted the focus from place to perspective. Through fragmented, emotionally charged testimonials, characters spoke around the truth instead of directly at it, revealing tension, suspicion, and buried secrets without ever fully explaining them.</p>
                 <div class="imp-pl-hero">
                   <div class="imp-vid-wrap">
                     <video src="../images/portfolio/integrated-marketing/impulse/video/character/01-impulse-character-henry-coles.mp4" poster="../images/portfolio/integrated-marketing/impulse/video/character/01-impulse-character-henry-coles.webp" playsinline preload="metadata"></video>
@@ -226,10 +230,9 @@
             <!-- Launch content -->
             <div class="eip-season" data-imp="launch" hidden>
               <img src="../images/portfolio/integrated-marketing/impulse/01-impulse-gtm.gif"   alt="Impulse GTM" style="width:100%; display:block;">
-              <img src="../images/portfolio/integrated-marketing/impulse/02-impulse-gtm.png"   alt="Impulse GTM" style="width:100%; display:block;">
+              <img src="../images/portfolio/integrated-marketing/impulse/02-impulse-gtm.webp"  alt="Impulse GTM" style="width:100%; display:block;">
               <img src="../images/portfolio/integrated-marketing/impulse/03-impulse-gtm.webp"  alt="Impulse GTM" style="width:100%; display:block;">
               <img src="../images/portfolio/integrated-marketing/impulse/04-impulse-gtm.webp"  alt="Impulse GTM" style="width:100%; display:block;">
-              <img src="../images/portfolio/integrated-marketing/impulse/05-impulse-ooh.webp.webp" alt="Impulse OOH" style="width:100%; display:block;">
             </div>
 
             <!-- Launch Stunt content -->
@@ -319,7 +322,19 @@
       });
     });
 
-    // ── Init pill position on load ────────────────────────────────
+    // ── Init: activate tab from URL hash ─────────────────────────
+    var hashTarget = location.hash.replace('#', '');
+    if (hashTarget && hashTarget !== 'pre-launch') {
+      var hashTab = document.querySelector('.imp-pill-row [data-imp="' + hashTarget + '"]');
+      if (hashTab) {
+        sectionTabs.forEach(function (t) { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+        hashTab.classList.add('active');
+        hashTab.setAttribute('aria-selected', 'true');
+        sections.forEach(function (s) { s.hidden = s.dataset.imp !== hashTarget; });
+        updateCopy(hashTarget);
+        currentSection = hashTarget;
+      }
+    }
     movePill(sectionPill, document.querySelector('.imp-pill-row [data-imp].active'));
 
   }());
