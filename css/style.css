@@ -1220,7 +1220,7 @@ body.is-splash {
 
 .exp-item {
   display: grid;
-  grid-template-columns: 115px 1fr;
+  grid-template-columns: 115px 64px 1fr;
   gap: var(--s6);
   padding: var(--s4) 0;
   border-bottom: 1px solid var(--gray-200);
@@ -1233,6 +1233,21 @@ body.is-splash {
   text-transform: uppercase;
   color: var(--gray-400);
   padding-top: 2px;
+}
+
+.exp-logo {
+  display: flex;
+  align-items: flex-start;
+  height: 20px;
+  padding-top: 1px;
+}
+
+.exp-logo img {
+  display: block;
+  max-width: 52px;
+  max-height: 18px;
+  width: auto;
+  height: auto;
 }
 
 .exp-role {
@@ -2341,6 +2356,19 @@ hr.rule {
   .exp-item {
     grid-template-columns: 1fr;
     gap: var(--s1);
+  }
+
+  .exp-logo {
+    margin: var(--s1) 0;
+  }
+
+  .exp-item-split {
+    flex-direction: column;
+    gap: var(--s4);
+  }
+
+  .clients-section {
+    margin-left: 0;
   }
 
 
