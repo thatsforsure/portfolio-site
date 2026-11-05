@@ -1255,6 +1255,10 @@ body.is-splash {
   height: auto;
 }
 
+.exp-logo img.exp-logo-wide {
+  max-width: 64px;
+}
+
 .exp-role {
   font-size: var(--t14);
   font-weight: 700;
