@@ -1220,7 +1220,7 @@ body.is-splash {
 
 .exp-item {
   display: grid;
-  grid-template-columns: 115px 64px 1fr;
+  grid-template-columns: 115px 1fr;
   gap: var(--s6);
   padding: var(--s4) 0;
   border-bottom: 1px solid var(--gray-200);
@@ -1233,6 +1233,11 @@ body.is-splash {
   text-transform: uppercase;
   color: var(--gray-400);
   padding-top: 2px;
+}
+
+/* Rows with a company logo get a third column between dates and title */
+.exp-item--logo {
+  grid-template-columns: 115px 64px 1fr;
 }
 
 .exp-logo {
@@ -2353,13 +2358,18 @@ hr.rule {
     padding: 0;
   }
 
-  .exp-item {
+  .exp-item,
+  .exp-item--logo {
     grid-template-columns: 1fr;
     gap: var(--s1);
   }
 
   .exp-logo {
     margin: var(--s1) 0;
+  }
+
+  .exp-logo:empty {
+    display: none;
   }
 
   .exp-item-split {
