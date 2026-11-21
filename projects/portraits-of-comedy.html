@@ -13,6 +13,25 @@
   <style>
     .poc-carousel .av-dot.is-active { width: 6px; background: var(--gray-700); cursor: default; }
     .poc-carousel .av-dot.is-active::after { display: none; }
+
+    /* Right half of the image advances: hide the native zoom cursor there
+       and turn the site's dot cursor into a small arrow. */
+    .poc-carousel .kac-stage.is-next-zone,
+    .poc-carousel .kac-stage.is-next-zone .kac-img { cursor: none; }
+    body.cursor-next .cursor {
+      width: 34px;
+      height: 34px;
+      opacity: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    body.cursor-next .cursor::after {
+      content: '→';
+      color: var(--white);
+      font-size: 14px;
+      line-height: 1;
+    }
   </style>
 </head>
 <body>
@@ -225,30 +244,87 @@
 
     var index = 0;
 
-    function setImage(src) {
-      img.classList.add('fading');
-      setTimeout(function () {
-        img.src = src;
-        img.alt = 'Portraits of Comedy — image ' + (index + 1);
-        img.classList.remove('fading');
-      }, 150);
+    var FADE_MS = 150;          // matches --fast in style.css
+    var swapToken = 0;
+    var preloaded = {};
+
+    // Start downloading and decoding an image; resolves when it can paint.
+    function preload(src) {
+      if (!preloaded[src]) {
+        var pre = new Image();
+        pre.src = src;
+        preloaded[src] = (pre.decode ? pre.decode() : Promise.resolve()).catch(function () {});
+      }
+      return preloaded[src];
     }
 
+    // Animate opacity from wherever it is now to `target`, and resolve only
+    // when the animation has actually finished. A timer guess raced the CSS
+    // transition, so the swap could land while the old image was still
+    // visible, which read as a cut.
+    function fadeTo(target) {
+      var from = +getComputedStyle(img).opacity;
+      img.getAnimations().forEach(function (a) { a.cancel(); });
+      var dur = Math.max(1, FADE_MS * Math.abs(target - from));
+      return img.animate([{ opacity: from }, { opacity: target }],
+                         { duration: dur, easing: 'ease', fill: 'forwards' })
+                .finished.catch(function () {});
+    }
+
+    // Fade out, swap only once the next image is decoded, then fade in.
+    // Swapping before the file arrived is what made the old image fade
+    // back in and the new one cut in a moment later.
+    function setImage(src) {
+      var token = ++swapToken;
+      var alt = 'Portraits of Comedy — image ' + (index + 1);
+
+      if (!img.getAttribute('src')) {          // first paint: no fade-out
+        img.src = src; img.alt = alt;
+        return;
+      }
+
+      Promise.all([preload(src), fadeTo(0)]).then(function () {
+        if (token !== swapToken) return;      // a newer click took over
+        img.src = src;
+        img.alt = alt;
+        return img.decode ? img.decode().catch(function () {}) : null;
+      }).then(function () {
+        if (token !== swapToken) return;
+        return fadeTo(1);
+      });
+
+      // Warm the neighbours so the next click is instant.
+      [index + 1, index + 2, index - 1].forEach(function (i) {
+        if (i >= 0 && i < IMAGES.length) preload(IMAGES[i]);
+      });
+    }
+
+    var dots = [];
+
+    // Build the dots once and then only toggle classes, so the dots'
+    // colour transition can play. Rebuilding them on every change made
+    // the active dot snap instead of easing.
     function renderDotTrack() {
       if (!dotTrack) return;
       var dotRow = dotTrack.querySelector('.av-dot-row');
       if (!dotRow) return;
 
-      dotRow.innerHTML = '';
-      IMAGES.forEach(function (item, i) {
-        var dot = document.createElement('span');
-        dot.className = 'av-dot' +
-          (i < index   ? ' is-past'   : '') +
-          (i === index ? ' is-active' : '');
-        dot.addEventListener('click', function () {
-          if (i !== index) { index = i; render(); }
+      if (dots.length !== IMAGES.length) {
+        dotRow.innerHTML = '';
+        dots = IMAGES.map(function (item, i) {
+          var dot = document.createElement('span');
+          dot.className = 'av-dot';
+          dot.addEventListener('click', function () {
+            if (i !== index) { index = i; render(); }
+          });
+          dotRow.appendChild(dot);
+          return dot;
         });
-        dotRow.appendChild(dot);
+      }
+
+      dots.forEach(function (dot, i) {
+        dot.classList.toggle('is-past',   i < index);
+        dot.classList.toggle('is-active', i === index);
       });
     }
 
@@ -309,12 +385,38 @@
 
     render();
 
-    // Click the carousel image itself to open the full overlay
-    img.addEventListener('click', function () {
+    // Click the right half of the image area to advance. Anywhere else on
+    // the image (or the right half on the last image) opens the full view.
+    var stage = img.closest('.kac-stage');
+
+    function inNextZone(e) {
+      if (index >= IMAGES.length - 1) return false;
+      var r = stage.getBoundingClientRect();
+      return e.clientX - r.left > r.width / 2;
+    }
+
+    function openOverlay() {
       if (IMAGES.length === 0) return;
       overlay.hidden = false;
       document.body.style.overflow = 'hidden';
       syncOverlay();
+    }
+
+    stage.addEventListener('click', function (e) {
+      if (IMAGES.length === 0) return;
+      if (inNextZone(e)) { index++; render(); }
+      else if (e.target === img) { openOverlay(); }
+    });
+
+    // Turn the custom cursor into an arrow over the advance zone.
+    stage.addEventListener('mousemove', function (e) {
+      var next = inNextZone(e);
+      stage.classList.toggle('is-next-zone', next);
+      document.body.classList.toggle('cursor-next', next);
+    });
+    stage.addEventListener('mouseleave', function () {
+      stage.classList.remove('is-next-zone');
+      document.body.classList.remove('cursor-next');
     });
 
   }());
