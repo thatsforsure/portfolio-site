@@ -133,21 +133,41 @@ document.addEventListener('DOMContentLoaded', () => {
       }, { rootMargin: '200px 0px' })
     : null;
 
-  function watchAutoplay(root = document) {
-    $$('video[data-autoplay]', root).forEach(v => {
-      if (v._watched) return;
-      v._watched = true;
-      v.muted = true;                       // required for autoplay policies
-      v.addEventListener('pause', () => {
-        if (v._sitePausing) v._sitePausing = false;
-        else v._userPaused = true;
-      });
-      v.addEventListener('play', () => { v._userPaused = false; });
-      if (viewObserver) viewObserver.observe(v);
-      else v.play().catch(() => {});
+  // Watch only once a video's box has its final shape (static videos carry
+  // an inline aspect-ratio). Before a poster loads a video is a 300x150
+  // default box, so short placeholders would all count as "in view" and
+  // every video would start downloading at once.
+  function watchVideo(v) {
+    if (v._watched) return;
+    v._watched = true;
+    v.muted = true;                         // required for autoplay policies
+    v.addEventListener('pause', () => {
+      if (v._sitePausing) v._sitePausing = false;
+      else v._userPaused = true;
     });
+    v.addEventListener('play', () => { v._userPaused = false; });
+    if (viewObserver) viewObserver.observe(v);
+    else v.play().catch(() => {});
+  }
+
+  function watchAutoplay(root = document) {
+    $$('video[data-autoplay]', root).forEach(watchVideo);
   }
   watchAutoplay();
+
+  // For videos built at runtime: read the poster's size, set the box's
+  // aspect ratio from it, then start watching.
+  function watchWhenShaped(v) {
+    const done = () => watchVideo(v);
+    if (!v.poster) return done();
+    const p = new Image();
+    p.onload = () => {
+      if (p.naturalWidth) v.style.aspectRatio = p.naturalWidth + ' / ' + p.naturalHeight;
+      done();
+    };
+    p.onerror = done;
+    p.src = v.poster;
+  }
 
 
   /* --------------------------------------------------------------
@@ -208,7 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
           if (el) container.appendChild(el);
         });
-        watchAutoplay(container);
+        $$('video[data-autoplay]', container).forEach(watchWhenShaped);
       })
       .catch(() => {
         // No manifest yet — placeholder content remains visible
