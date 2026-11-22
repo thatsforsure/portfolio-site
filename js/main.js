@@ -58,7 +58,8 @@ document.addEventListener('DOMContentLoaded', () => {
     link.addEventListener('click', e => {
       e.preventDefault();
       document.body.classList.remove('loaded');
-      setTimeout(() => { window.location.href = href; }, 500);
+      // Wait only for the 200ms fade-out (style.css body transition).
+      setTimeout(() => { window.location.href = href; }, 200);
     });
   });
 
@@ -113,6 +114,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   /* --------------------------------------------------------------
+     7b. PLAY-ON-VIEW VIDEOS
+     <video data-autoplay muted loop playsinline preload="none" poster>
+     downloads nothing until it scrolls near the viewport, then plays.
+     It pauses when scrolled away and resumes on return, but never
+     restarts a video the visitor paused themselves.
+  -------------------------------------------------------------- */
+  const viewObserver = 'IntersectionObserver' in window
+    ? new IntersectionObserver(entries => {
+        entries.forEach(({ target: v, isIntersecting }) => {
+          if (isIntersecting) {
+            if (!v._userPaused && v.paused) v.play().catch(() => {});
+          } else if (!v.paused) {
+            v._sitePausing = true;
+            v.pause();
+          }
+        });
+      }, { rootMargin: '200px 0px' })
+    : null;
+
+  function watchAutoplay(root = document) {
+    $$('video[data-autoplay]', root).forEach(v => {
+      if (v._watched) return;
+      v._watched = true;
+      v.muted = true;                       // required for autoplay policies
+      v.addEventListener('pause', () => {
+        if (v._sitePausing) v._sitePausing = false;
+        else v._userPaused = true;
+      });
+      v.addEventListener('play', () => { v._userPaused = false; });
+      if (viewObserver) viewObserver.observe(v);
+      else v.play().catch(() => {});
+    });
+  }
+  watchAutoplay();
+
+
+  /* --------------------------------------------------------------
      8. DYNAMIC GALLERY
      .project-images[data-gallery-path] fetches manifest.json from
      the specified path, then renders <img> or <video> for each file.
@@ -138,7 +176,22 @@ document.addEventListener('DOMContentLoaded', () => {
           const ext = filename.split('.').pop().toLowerCase();
           let el;
 
-          if (IMAGE_EXTS.has(ext)) {
+          if (filename.includes('.poster.')) return;   // poster frames, not gallery items
+
+          if (/\.loop\.mp4$/i.test(filename)) {
+            // Former GIF: silent loop that plays when scrolled into view.
+            // Shown even in data-images-only galleries, since it replaced an image.
+            el = document.createElement('video');
+            el.src         = base + filename;
+            el.poster      = base + filename.replace(/\.loop\.mp4$/i, '.poster.webp');
+            el.muted       = true;
+            el.loop        = true;
+            el.playsInline = true;
+            el.preload     = 'none';
+            el.className   = 'loop-video';
+            el.setAttribute('data-autoplay', '');
+            el.setAttribute('aria-label', filename.replace(/\.loop\.mp4$/i, '').replace(/[-_]/g, ' '));
+          } else if (IMAGE_EXTS.has(ext)) {
             el = document.createElement('img');
             el.src      = base + filename;
             el.alt      = filename.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ');
@@ -155,6 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
           if (el) container.appendChild(el);
         });
+        watchAutoplay(container);
       })
       .catch(() => {
         // No manifest yet — placeholder content remains visible

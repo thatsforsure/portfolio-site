@@ -119,7 +119,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
   cursor: none;
   opacity: 0;
-  transition: opacity var(--slow) var(--ease);
+  /* Short on purpose: this fade runs on every page load and before every
+     internal navigation, so it adds directly to how slow the site feels. */
+  transition: opacity 200ms var(--ease);
 }
 
 body.loaded {
@@ -2074,6 +2076,21 @@ body.is-splash {
 .project-images img:not(.kac-img),
 .project-images video {
   cursor: zoom-in;
+}
+
+/* Looping, muted videos that replace GIFs. Transparent background so
+   nothing flashes black before the poster frame paints. */
+.loop-video {
+  width: 100%;
+  display: block;
+}
+.pc-img-wrap .loop-video {
+  height: 100%;
+  object-fit: cover;
+  transition: opacity var(--mid) var(--ease);
+}
+.project-card:hover .pc-img-wrap .loop-video {
+  opacity: 0.72;
 }
 
 /* Dynamic gallery — video files */

@@ -33,7 +33,8 @@ function walk(dir) {
 
   // Collect media files in this directory, sorted alphabetically
   const media = entries
-    .filter(e => e.isFile() && MEDIA_EXTS.has(path.extname(e.name).toLowerCase()))
+    // Skip *.poster.* frames: they belong to a video, not to the gallery.
+    .filter(e => e.isFile() && MEDIA_EXTS.has(path.extname(e.name).toLowerCase()) && !e.name.includes('.poster.'))
     .map(e => e.name)
     .sort();
 
