@@ -111,6 +111,9 @@
     // Videos load automatically from manifest.json in each folder.
     // Drop files into the folder, run "Update Images.command", refresh.
     var BASE   = '../images/portfolio/art-direction/av-motion/';
+    // The videos themselves are served from Cloudflare R2 (see js/main.js
+    // MEDIA_ORIGIN); only manifest.json is read from this site.
+    var MEDIA  = 'https://media.evancuttic.com/portfolio/art-direction/av-motion/';
     var ROLES  = {
       netflix: 'Director<br>Global Creative Marketing',
       youtube: 'Creative Director<br>YouTube Premium',
@@ -214,7 +217,7 @@
             .filter(function (f) { return /\.(mp4|mov|webm)$/i.test(f); })
             .map(function (f) {
               var t = parseTitle(f);
-              return { src: BASE + c + '/' + f, show: t.show, detail: t.detail };
+              return { src: MEDIA + c + '/' + f, show: t.show, detail: t.detail };
             });
           fetched[c] = true;
         })

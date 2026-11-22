@@ -179,6 +179,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const IMAGE_EXTS = new Set(['webp', 'jpg', 'jpeg', 'png', 'gif']);
   const VIDEO_EXTS = new Set(['mp4', 'mov', 'webm']);
 
+  // Click-to-play videos are served from Cloudflare R2, not this site:
+  // "../images/portfolio/x/y.mp4" -> "https://media.evancuttic.com/portfolio/x/y.mp4".
+  // Upload new ones with scripts/upload-media.py. Self-playing loops stay local.
+  const MEDIA_ORIGIN = 'https://media.evancuttic.com/';
+  const mediaUrl = path => {
+    const i = path.indexOf('images/');
+    return i === -1 ? path : MEDIA_ORIGIN + path.slice(i + 'images/'.length);
+  };
+
   $$('.project-images[data-gallery-path]').forEach(container => {
     const base       = container.dataset.galleryPath;
     const imagesOnly = container.hasAttribute('data-images-only');
@@ -219,7 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
             el.loading  = 'lazy';
           } else if (VIDEO_EXTS.has(ext) && !imagesOnly) {
             el = document.createElement('video');
-            el.src         = base + filename;
+            el.src         = mediaUrl(base + filename);
             el.controls    = true;
             el.playsInline = true;
             el.preload     = 'metadata';
