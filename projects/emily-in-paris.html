@@ -165,9 +165,11 @@
                 </div>
                 <div class="imp-pl-item">
                   <div class="imp-vid-wrap">
-                    <video src="../images/portfolio/interactive-experiential/pink-for-premiere/pink-for-premiere-01.mp4"
-                           playsinline preload="metadata"></video>
-                    <button class="imp-play-btn" aria-label="Play"></button>
+                    <!-- Plays like a GIF: silent loop, no play button or controls -->
+                    <video class="loop-video" src="../images/portfolio/interactive-experiential/pink-for-premiere/pink-for-premiere-01.mp4"
+                           poster="../images/portfolio/interactive-experiential/pink-for-premiere/pink-for-premiere-01.poster.webp"
+                           style="aspect-ratio: 1920 / 1080;" aria-label="EIP x Empire State Building"
+                           data-autoplay muted loop playsinline preload="none"></video>
                   </div>
                   <p class="imp-pl-caption">EIP x Empire State Building</p>
                 </div>

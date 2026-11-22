@@ -296,10 +296,15 @@ document.addEventListener('DOMContentLoaded', () => {
       const isVideo = el.tagName === 'VIDEO';
 
       if (isVideo) {
-        lbImg.hidden   = true;
-        lbVideo.hidden = false;
-        lbVideo.src    = el.src;
-        lbVideo.play();
+        // Former GIFs (.loop-video) stay GIF-like when enlarged: silent
+        // loop, no control bar. Everything else gets normal controls.
+        const gifLike = el.classList.contains('loop-video');
+        lbImg.hidden      = true;
+        lbVideo.hidden    = false;
+        lbVideo.controls  = !gifLike;
+        lbVideo.muted     = gifLike;
+        lbVideo.src       = el.src;
+        lbVideo.play().catch(() => {});
       } else {
         lbVideo.pause();
         lbVideo.src    = '';
