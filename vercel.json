@@ -3,8 +3,23 @@
     {
       "source": "/images/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400, stale-while-revalidate=604800"
+        }
       ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/projects/key-art-direction.html",
+      "destination": "/projects/art-direction.html",
+      "permanent": true
+    },
+    {
+      "source": "/projects/key-art-direction",
+      "destination": "/projects/art-direction.html",
+      "permanent": true
     }
   ]
 }

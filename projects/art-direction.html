@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Key Art Direction — Evan Cuttic</title>
-  <meta name="description" content="Key art direction by Evan Cuttic — Netflix, YouTube, and HBO.">
+  <title>Art Direction — Evan Cuttic</title>
+  <meta name="description" content="Art direction by Evan Cuttic — key art for Netflix, YouTube, and HBO.">
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='black'/%3E%3Ctext x='16' y='22' font-family='sans-serif' font-size='13' font-weight='900' fill='white' text-anchor='middle' letter-spacing='1'%3EEC%3C/text%3E%3C/svg%3E">
 
@@ -40,7 +40,7 @@
         <a href="../categories/art-direction.html" class="project-back">
           <span class="arrow" aria-hidden="true">←</span> Art + Motion Direction
         </a>
-        <h1 class="project-title">Key Art Direction</h1>
+        <h1 class="project-title">Art Direction</h1>
       </header>
 
       <div class="project-body">
@@ -238,14 +238,62 @@
 
     function imgs() { return IMAGES[company]; }
 
-    function setImage(src, alt) {
-      img.classList.add('fading');
-      setTimeout(function () {
-        img.src = src;
-        img.alt = alt;
-        img.classList.remove('fading');
-      }, 150);
+    // ── Image swap ────────────────────────────────────────────────
+    // Fade out, swap only once the next file is downloaded and decoded,
+    // then fade in. The old version swapped on a fixed 150ms timer: on a
+    // slow load the fade finished on the old picture and the new one cut
+    // in later, and clicking faster than images arrived left the old
+    // picture on screen while the dots kept advancing.
+    var FADE_MS   = 150;          // matches --fast in style.css
+    var swapToken = 0;
+    var preloaded = {};
+
+    function preload(src) {
+      if (!preloaded[src]) {
+        var pre = new Image();
+        pre.src = src;
+        preloaded[src] = (pre.decode ? pre.decode() : Promise.resolve()).catch(function () {});
+      }
+      return preloaded[src];
     }
+
+    // Animate opacity from where it is now; resolves when actually done.
+    function fadeTo(target) {
+      var from = +getComputedStyle(img).opacity;
+      img.getAnimations().forEach(function (a) { a.cancel(); });
+      var dur = Math.max(1, FADE_MS * Math.abs(target - from));
+      return img.animate([{ opacity: from }, { opacity: target }],
+                         { duration: dur, easing: 'ease', fill: 'forwards' })
+                .finished.catch(function () {});
+    }
+
+    function setImage(src, alt, onShown) {
+      var token = ++swapToken;
+      if (!img.getAttribute('src')) {           // first paint: no fade-out
+        img.src = src; img.alt = alt;
+        if (onShown) onShown();
+      } else {
+        Promise.all([preload(src), fadeTo(0)]).then(function () {
+          if (token !== swapToken) return;       // a newer click took over
+          img.src = src;
+          img.alt = alt;
+          return img.decode ? img.decode().catch(function () {}) : null;
+        }).then(function () {
+          if (token !== swapToken) return;
+          if (onShown) onShown();
+          return fadeTo(1);
+        });
+      }
+      // Warm the neighbours so the next click is instant.
+      var list = imgs();
+      [index + 1, index + 2, index - 1].forEach(function (i) {
+        if (i >= 0 && i < list.length) preload(list[i]);
+      });
+    }
+
+    // Dots are rebuilt only when the studio tab changes; otherwise their
+    // classes are toggled, so the active dot's width transition can play.
+    var dots = [], dotsFor = null;
 
     function renderDotTrack() {
       if (!dotTrack) return;
@@ -253,17 +301,22 @@
       if (!dotRow) return;
 
       var list = imgs();
-      dotRow.innerHTML = '';
-
-      list.forEach(function (item, i) {
-        var dot = document.createElement('span');
-        dot.className = 'av-dot' +
-          (i < index   ? ' is-past'   : '') +
-          (i === index ? ' is-active' : '');
-        dot.addEventListener('click', function () {
-          if (i !== index) { index = i; render(); }
+      if (dotsFor !== company) {
+        dotsFor = company;
+        dotRow.innerHTML = '';
+        dots = list.map(function (item, i) {
+          var dot = document.createElement('span');
+          dot.className = 'av-dot';
+          dot.addEventListener('click', function () {
+            if (i !== index) { index = i; render(); }
+          });
+          dotRow.appendChild(dot);
+          return dot;
         });
-        dotRow.appendChild(dot);
+      }
+      dots.forEach(function (dot, i) {
+        dot.classList.toggle('is-past',   i < index);
+        dot.classList.toggle('is-active', i === index);
       });
     }
 
@@ -279,7 +332,14 @@
 
       if (has) {
         var src = list[index];
-        setImage(src, company + ' key art ' + (index + 1));
+        var showNote = company === 'netflix' && index === 13;
+        if (annotationEl) annotationEl.hidden = true;   // reappears with its image
+        setImage(src, company + ' key art ' + (index + 1), function () {
+          if (annotationEl && showNote) {
+            annotationEl.hidden = false;
+            positionAnnotation();
+          }
+        });
         if (prevBtn) prevBtn.disabled = index === 0;
         if (nextBtn) nextBtn.disabled = index === list.length - 1;
         renderDotTrack();
@@ -296,10 +356,6 @@
             : '';
         }
         if (partnersRowEl) { partnersRowEl.hidden = !credits; }
-        if (annotationEl) {
-          annotationEl.hidden = !(company === 'netflix' && index === 13);
-          positionAnnotation();
-        }
       }
     }
 
