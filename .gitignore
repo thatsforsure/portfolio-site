@@ -3,3 +3,57 @@
 *.psd
 *.xmp
 *.acr
+
+# Served from media.evancuttic.com (Cloudflare R2), not deployed with the site.
+# Upload new ones with scripts/upload-media.py, then list them here.
+/images/portfolio/ai-creative-direction/american-express/amex-01.mp4
+/images/portfolio/art-direction/av-motion/abc/01-6abc-NotaMicrophone-Promo.mp4
+/images/portfolio/art-direction/av-motion/abc/02-6abc-JimmyKimmelxNightline-Promo.mp4
+/images/portfolio/art-direction/av-motion/abc/03-6abc-TheBigBoard-Promo.mp4
+/images/portfolio/art-direction/av-motion/abc/04-6abc-6abcxPennStateThon-Promo.mp4
+/images/portfolio/art-direction/av-motion/hbo/01-HBO-GameofThrones-S4-Trailer.mp4
+/images/portfolio/art-direction/av-motion/hbo/02-HBO-Looking-S2-Teaser.mp4
+/images/portfolio/art-direction/av-motion/hbo/03-HBO-Entourage-Teaser.mp4
+/images/portfolio/art-direction/av-motion/hbo/04-HBO-TheNewsroom-S3-Trailer.mp4
+/images/portfolio/art-direction/av-motion/hbo/05-HBO-BoardwalkEmpire-S3-Teaser.mp4
+/images/portfolio/art-direction/av-motion/hbo/06-HBO-Looking-S1-Trailer.mp4
+/images/portfolio/art-direction/av-motion/hbo/07-HBO-GameofThrones-S5-Promo.mp4
+/images/portfolio/art-direction/av-motion/hbo/08-HBO-GameofThonres-S4-Promo.mp4
+/images/portfolio/art-direction/av-motion/netflix/01-Netflix-SpaceForce-S1-Teaser.mp4
+/images/portfolio/art-direction/av-motion/netflix/02-Netflix-DeadtoMe-S1-Trailer.mp4
+/images/portfolio/art-direction/av-motion/netflix/03-Netflix-DeadtoMe-S2-Teaser.mp4
+/images/portfolio/art-direction/av-motion/netflix/04-Netflix-EmilyinParis-S3-Teaser.mp4
+/images/portfolio/art-direction/av-motion/netflix/05-Netflix-TheWomanInTheHouse-S1-Trailer.mp4
+/images/portfolio/art-direction/av-motion/netflix/06-Netflix-Uncoupled-S1-Teaser.mp4
+/images/portfolio/art-direction/av-motion/netflix/07-Netflix-NobodyWantsThis-S1-Trailer.mp4
+/images/portfolio/art-direction/av-motion/netflix/08-Netflix-EmilyinParis-S3-Trailer.mp4
+/images/portfolio/art-direction/av-motion/netflix/09-Netflix-SantaClaritaDiet-S3-Trailer.mp4
+/images/portfolio/art-direction/av-motion/netflix/10-Netflix-GraceandFrankie-S7B-Trailer.mp4
+/images/portfolio/art-direction/av-motion/youtube/01-youtube-cobra-kai-s1-teaser.mp4
+/images/portfolio/art-direction/av-motion/youtube/02-youtube-cobra-kai-s1-trailer.mp4
+/images/portfolio/art-direction/av-motion/youtube/03-youtube-impulse-s1-trailer.mp4
+/images/portfolio/art-direction/av-motion/youtube/04-youtube-rhscot-s1.mp4
+/images/portfolio/art-direction/av-motion/youtube/05-youtube-gigi.mp4
+/images/portfolio/integrated-marketing/emily-in-paris/s3/s3video/Emily in Paris Season 3 ｜ Date Announcement Teaser ｜ Netflix \[uymS6HPM1mw\].mp4
+/images/portfolio/integrated-marketing/emily-in-paris/s3/s3video/Emily in Paris Season 3 ｜ Official Trailer ｜ Netflix \[fuq4BIGHncM\].mp4
+/images/portfolio/integrated-marketing/emily-in-paris/s4/s4video/emily-in-paris-s4-01.mp4
+/images/portfolio/integrated-marketing/emily-in-paris/s4/s4video/emily-in-paris-s4-02.mp4
+/images/portfolio/integrated-marketing/emily-in-paris/s4/s4video/emily-in-paris-s4-04.mp4
+/images/portfolio/integrated-marketing/emily-in-paris/s4/s4video/emily-in-paris-s4-05.mp4
+/images/portfolio/integrated-marketing/impulse/video/character/01-impulse-character-henry-coles.mp4
+/images/portfolio/integrated-marketing/impulse/video/character/02-impulse-character-cleo-coles.mp4
+/images/portfolio/integrated-marketing/impulse/video/character/03-impulse-character-bill-boone.mp4
+/images/portfolio/integrated-marketing/impulse/video/character/04-impulse-character-clay-boone.mp4
+/images/portfolio/integrated-marketing/impulse/video/character/05-impulse-character-jenna-hope.mp4
+/images/portfolio/integrated-marketing/impulse/video/character/06-impulse-character-deputy-anna-hulce.mp4
+/images/portfolio/integrated-marketing/impulse/video/character/07-impulse-character-lucas-boone.mp4
+/images/portfolio/integrated-marketing/impulse/video/hero/01-impulse-teaser.mp4
+/images/portfolio/integrated-marketing/impulse/video/hero/02-impulse-trailer.mp4
+/images/portfolio/integrated-marketing/impulse/video/town-of-reston/01-impulse-townofreston-howfarwouldyougo.mp4
+/images/portfolio/integrated-marketing/impulse/video/town-of-reston/02-impulse-townofreston-community-disservice.mp4
+/images/portfolio/integrated-marketing/impulse/video/town-of-reston/03-impulse-townofreston-irresponsible-adults.mp4
+/images/portfolio/integrated-marketing/impulse/video/town-of-reston/04-impulse-townofreston-smalltownbigmystery.mp4
+/images/portfolio/integrated-marketing/impulse/video/town-of-reston/05-impulse-townofreston-thekidsarentalright.mp4
+/images/portfolio/integrated-marketing/niajfest-gtm/video/niajfest-gtm-video-01.mp4
+/images/portfolio/interactive-experiential/fruit-ninja-frenzy/fruit-ninja-frenzy-01.mp4
+/images/portfolio/interactive-experiential/sxsw-swords/sxsw-swords-01.mp4
